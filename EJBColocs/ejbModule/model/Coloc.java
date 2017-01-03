@@ -15,12 +15,14 @@ public class Coloc {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_coloc;/** Id of a coloc (generated automatically)*/
 	private String blazColoc;/** name for a coloc */
-	@OneToMany
+	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
 	@OneToMany
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
 	@OneToMany
-	private Set<Event> events;/** various events assoicated to the coloc */
+	private Set<Event> events;/** various events associated to the coloc */
+	@OneToMany
+	private Set<Task> tasks;/** various task associated to the coloc */
 	
 	public Coloc(){
 		this.blazColoc = "";
@@ -35,12 +37,18 @@ public class Coloc {
 		this.shoppingLists = new HashSet<ShoppingList>();
 	}
 	
+	
+	
+	public Set<User> getMembers() {
+		return members;//TODO: encapsulate field
+	}
+
 	/**
 	 * adds a user to the coloc
 	 * @param user: the user to add
 	 * @return the result of the operation
 	 */
-	public boolean addMemeber(User user){
+	public boolean addMember(User user){
 		return this.members.add(user);
 	}
 	
@@ -78,6 +86,14 @@ public class Coloc {
 	 */
 	public boolean removeEvent(Event event){
 		return this.events.remove(event);
+	}
+	
+	public boolean addTask(Task t){
+		return this.tasks.add(t);
+	}
+	
+	public boolean removeTask(Task t){
+		return this.tasks.remove(t);
 	}
 	
 }

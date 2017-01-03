@@ -16,7 +16,8 @@ public class User implements Serializable{
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private String username;/** Id of the user */
+	private int userId;/** User ID */
+	private String username;/** username */
 	private String firstName;/** first name of the user */
 	private String lastName;/** last name of the user */
 	private String passwordHash;/** Hash of the user password */
