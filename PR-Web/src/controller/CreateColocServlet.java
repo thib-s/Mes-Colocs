@@ -1,4 +1,4 @@
-package controler;
+package controller;
 
 import java.io.IOException;
 import java.util.Base64;
@@ -38,13 +38,15 @@ public class CreateColocServlet {
 			String cName=request.getParameter("txtColocName");
 			String pass=request.getParameter("txtPass");
 			String confPass=request.getParameter("txtConfPass");
-			String address=request.getParameters("txtAddress");
-			String city=request.getParameters("txtCity");
-			String country=request.getParameters("txtCountry");
+			String address=request.getParameter("txtAddress");
+			String city=request.getParameter("txtCity");
+			String country=request.getParameter("txtCountry");
 			System.out.println("cName : " + cName + " pass : " + pass + " address : " + address + " , " + city + " , " + country);
 			System.out.println(b64encode.getEncoder().encodeToString(pass.getBytes()));
 			if (pass.equals(confPass)){
-				facade.addColoc(cName, address, city, country, b64encode.getEncoder().encodeToString(pass.getBytes()));
+				HttpSession session = request.getSession();
+				User user = (User) session.getAttribute("sessionUser");
+				facade.addColoc(user, cName, address, city, country, b64encode.getEncoder().encodeToString(pass.getBytes()));
 				request.getRequestDispatcher("homeColoc.jsp").forward(request,response);
 			} else {
 				// Wrong password
