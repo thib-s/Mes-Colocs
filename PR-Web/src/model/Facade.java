@@ -31,5 +31,22 @@ public class Facade {
 		}
 		return false;
 	}
+	
+	public User getUser(String username) {
+		Collection<User> listUser = em.createQuery("from User", User.class).getResultList();
+		for(User u : listUser){
+			if(u.getUsername().equals(username)){
+				return u;
+			}
+		}
+		return null;
+	}
+	
+	public boolean userHasColoc(User user) {
+		if(user.getMyColoc() != null) {
+			return true;
+		}
+		return false;
+	}
 
 }

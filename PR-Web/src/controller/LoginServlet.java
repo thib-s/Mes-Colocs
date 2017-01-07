@@ -10,8 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import model.Facade;
+import model.User;
 /**
  * Servlet implementation class LoginServlet
  */
@@ -50,9 +52,16 @@ public class LoginServlet extends HttpServlet {
 			System.out.println(facade.userExists(name, b64encode.getEncoder().encodeToString(pass.getBytes())));
 			if( facade.userExists(name, b64encode.getEncoder().encodeToString(pass.getBytes())))
 			{
-				RequestDispatcher rd=request.getRequestDispatcher("success.jsp");
-				request.setAttribute("uname", name);
-				rd.forward(request, response);
+				User user = facade.getUser(name);
+				HttpSession session = request.getSession();
+				session.setAttribute("sessionUser", user);
+				if(!facade.userHasColoc(user)){
+					RequestDispatcher rd=request.getRequestDispatcher("menuLoggedIn.jsp");
+					rd.forward(request, response);
+				} else {
+					RequestDispatcher rd=request.getRequestDispatcher("menuColloc.jsp");
+					rd.forward(request, response);
+				}
 				System.out.println("test");
 			}
 			else

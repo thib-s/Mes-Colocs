@@ -16,9 +16,14 @@
             
             <div class="panel-body" align="center">
             	<br>
-    			<button type="submit" style="margin: auto; padding:15px; width: 60%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="join" name="ok" ><b>Join a coloc</b></button>
+            	<form action="http://localhost:8080/PR-Web/joinColoc.jsp">
+    			<input type="submit" style="margin: auto; padding:15px; width: 60%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="Join a coloc" name="ok" >
+    			</form>
     			<br><br>
-    			<button type="submit" style="margin: auto; padding:15px; width: 60%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="create" name="ok" ><b>Create a coloc</b></button>
+    			<form action="http://localhost:8080/PR-Web/createColoc.jsp">
+    			<input type="submit" style="margin: auto; padding:15px; width: 60%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="Create a coloc" name="ok" >
+    			</form>
+  				
   			</div>
     	</div>
   	</div>
