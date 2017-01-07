@@ -48,5 +48,25 @@ public class Facade {
 		}
 		return false;
 	}
+	
+	public void addColoc(User user,String name,String address,String city, String country, String password){
+		Coloc coloc = new Coloc();
+		coloc.setBlazColoc(name);
+		coloc.setAddressColoc(address);
+		coloc.setCityColoc(city);
+		coloc.setCountryColoc(country);
+		coloc.setPasswordColoc(password);
+		coloc.addMember(user);
+	}
+	
+	public boolean colocExists(String colocname, String password) {
+		Collection<Coloc> listColoc = em.createQuery("from Coloc",Coloc.class).getResultList();
+		for(Coloc c : listColoc) {
+			if(c.getBlazColoc().equals(colocname) && c.getPasswordColoc().equals(password)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 }

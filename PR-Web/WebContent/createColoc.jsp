@@ -26,7 +26,7 @@ pageEncoding="UTF-8"%>
 						<div class="panel-heading form-group" style=" width : 562px;">
 							<div class="panel-body" >
 								
-								<form action="LoginServlet" method="post" >
+								<form action="CreateColocServlet" method="post" >
 								
 								<div class="form-group">
 									<label for="exampleInputColocName" align="right">Coloc Name</label > <input

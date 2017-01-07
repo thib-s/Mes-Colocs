@@ -15,6 +15,10 @@ public class Coloc {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_coloc;/** Id of a coloc (generated automatically)*/
 	private String blazColoc;/** name for a coloc */
+	private String passwordColoc; /** password of the coloc**/
+	private String addressColoc; /** adress of the coloc **/
+	private String cityColoc; /** city of the coloc **/
+	private String countryColoc; /** county of the coloc**/
 	@OneToMany
 	private Set<User> members;/** the users associated to a coloc */
 	@OneToMany
@@ -40,7 +44,7 @@ public class Coloc {
 	 * @param user: the user to add
 	 * @return the result of the operation
 	 */
-	public boolean addMemeber(User user){
+	public boolean addMember(User user){
 		return this.members.add(user);
 	}
 	
@@ -79,5 +83,46 @@ public class Coloc {
 	public boolean removeEvent(Event event){
 		return this.events.remove(event);
 	}
+
+	public String getBlazColoc() {
+		return blazColoc;
+	}
+
+	public void setBlazColoc(String blazColoc) {
+		this.blazColoc = blazColoc;
+	}
+
+	public String getPasswordColoc() {
+		return passwordColoc;
+	}
+
+	public void setPasswordColoc(String passwordColoc) {
+		this.passwordColoc = passwordColoc;
+	}
+
+	public String getAddressColoc() {
+		return addressColoc;
+	}
+
+	public void setAddressColoc(String addressColoc) {
+		this.addressColoc = addressColoc;
+	}
+
+	public String getCityColoc() {
+		return cityColoc;
+	}
+
+	public void setCityColoc(String cityColoc) {
+		this.cityColoc = cityColoc;
+	}
+
+	public String getCountryColoc() {
+		return countryColoc;
+	}
+
+	public void setCountryColoc(String countryColoc) {
+		this.countryColoc = countryColoc;
+	}
+	
 	
 }

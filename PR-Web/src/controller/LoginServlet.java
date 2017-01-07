@@ -38,7 +38,7 @@ public class LoginServlet extends HttpServlet {
 			String name=request.getParameter("txtUserName");
 			String pass=request.getParameter("txtPass");
 			String email=request.getParameter("txtEmail");
-			String firstname=request.getParameter("txtFirsttName");
+			String firstname=request.getParameter("txtFirstName");
 			String lastname=request.getParameter("txtLastName");
 			System.out.println("name : " + name + " pass : " + pass + " email : " + email + " firstname : " + firstname + " lastname : " + lastname);
 			System.out.println(b64encode.getEncoder().encodeToString(pass.getBytes()));
@@ -59,7 +59,7 @@ public class LoginServlet extends HttpServlet {
 					RequestDispatcher rd=request.getRequestDispatcher("menuLoggedIn.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd=request.getRequestDispatcher("menuColloc.jsp");
+					RequestDispatcher rd=request.getRequestDispatcher("homeColloc.jsp");
 					rd.forward(request, response);
 				}
 				System.out.println("test");
