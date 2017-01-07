@@ -10,10 +10,10 @@
 <body>
    
     <br>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin:auto; padding:50px; width:50%; background-color: white;">
         <div class="panel panel-success">
             <div class="panel-heading" align="center">
-                <h4><b><font color="black" style="font-family: fantasy;">Login</font> </b></h4>
+                <h4><b><font color="black" style="font-family: fantasy; font-size:30pt;">Login</font> </b></h4>
             </div>
             <div class="panel-body"align="center">
                  
@@ -28,18 +28,19 @@
 
                         <form action="LoginServlet" method="post" >
                             <div class="form-group">
-                                <label for="exampleInputEmail1">User Name</label> <input
+                                <label for="exampleInputEmail1">User Name :</label> <br> <input
                                     type="text" class="form-control" name="txtUserName" id="txtUserName"
                                     placeholder="Enter User Name" required="required">
                                    
-                            </div>
+                            </div> <br>
                             <div class="form-group">
-                                <label for="exampleInputPassword1">Password</label> <input
+                                <label for="exampleInputPassword1">Password :</label> <br> <input
                                     type="password" class="form-control" name="txtPass" id="txtPass"
                                     placeholder="Password" required="required">
-                            </div>
+                            </div> <br><br>
                             <button type="submit" style="width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="log" name="ok" ><b>Login</b></button>
-							<a href="createAccount.jsp" class="btn btn-success btn-lg  btn-large btn-info" role="button">Create Account</a>                                                 
+							<br><br>
+							<a href="createAccount.jsp" class="btn btn-success btn-lg  btn-large btn-info" role="button">Create an account</a>                                                 
                         </form>
 
                         </div>
@@ -48,7 +49,7 @@
                 </div>
                
             </div>
-            <div class="panel-footer" align="center"><font style="color: #111">Copyright @2014  <a href="http://mysite.com/">mysite.com</a>, All Rights Reserved. </font></div>
+            
         </div>
     </div>
    
