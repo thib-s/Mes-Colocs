@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1" import="model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,8 +64,19 @@
       <p>Welcome to the first version of our website Mes-Colocs.</p>
       <br><br>
       
-   
-     
+   <%
+
+User user =(User)session.getAttribute("sessionUser");
+String name = user.getUsername();
+String coloc = user.getMyColoc().getBlazColoc();
+%>
+     <h4><small>Your coloc</small></h4>
+      <hr>
+      <h2><%=coloc %></h2>
+      <h5><span class="glyphicon glyphicon-time"></span> Post by Team Mes-Coloc</h5>
+      <h5> <span class="label label-primary">News</span></h5><br>
+      <p><%=name %></p>
+      <br><br>
       
 </div></div></div>
 

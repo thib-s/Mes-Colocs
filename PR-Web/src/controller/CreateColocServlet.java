@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Facade;
+import model.Coloc;
 import model.User;
 /**
  * Servlet implementation class CreateColocServlet
  */
 
-public class CreateColocServlet {
+public class CreateColocServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	private static Base64 b64encode ;
@@ -46,7 +46,12 @@ public class CreateColocServlet {
 			if (pass.equals(confPass)){
 				HttpSession session = request.getSession();
 				User user = (User) session.getAttribute("sessionUser");
-				facade.addColoc(user, cName, address, city, country, b64encode.getEncoder().encodeToString(pass.getBytes()));
+				user = facade.getUser(user.getUsername());
+				session.removeAttribute("sessionUser");
+				Coloc coloc = facade.addColoc(user, cName, address, city, country, b64encode.getEncoder().encodeToString(pass.getBytes()));
+				facade.bindUserColoc(user,coloc);
+				user = facade.getUser(user.getUsername());
+				session.setAttribute("sessionUser", user);
 				request.getRequestDispatcher("homeColoc.jsp").forward(request,response);
 			} else {
 				// Wrong password
@@ -58,6 +63,13 @@ public class CreateColocServlet {
 			String pass=request.getParameter("txtPass");
 			System.out.println(facade.userExists(cName, b64encode.getEncoder().encodeToString(pass.getBytes())));
 			if( facade.colocExists(cName, b64encode.getEncoder().encodeToString(pass.getBytes()))){
+				Coloc coloc = facade.getColoc(cName); 
+				HttpSession session= request.getSession();
+				User user = (User) session.getAttribute("sessionUser");
+				user = facade.getUser(user.getUsername());
+				facade.bindUserColoc(user, coloc);
+				user = facade.getUser(user.getUsername());
+				session.setAttribute("sessionUser", user);
 				RequestDispatcher rd=request.getRequestDispatcher("homeColoc.jsp");
 				rd.forward(request, response);
 			} else {

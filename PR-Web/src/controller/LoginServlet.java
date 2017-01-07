@@ -56,13 +56,14 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session = request.getSession();
 				session.setAttribute("sessionUser", user);
 				if(!facade.userHasColoc(user)){
+					System.out.println("ici");
 					RequestDispatcher rd=request.getRequestDispatcher("menuLoggedIn.jsp");
 					rd.forward(request, response);
 				} else {
-					RequestDispatcher rd=request.getRequestDispatcher("homeColloc.jsp");
+					System.out.println("la");
+					RequestDispatcher rd=request.getRequestDispatcher("homeColoc.jsp");
 					rd.forward(request, response);
 				}
-				System.out.println("test");
 			}
 			else
 			{//if name&pass not match then it display error page//

@@ -19,7 +19,7 @@ public class Coloc {
 	private String addressColoc; /** adress of the coloc **/
 	private String cityColoc; /** city of the coloc **/
 	private String countryColoc; /** county of the coloc**/
-	@OneToMany
+	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
 	@OneToMany
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
@@ -122,6 +122,10 @@ public class Coloc {
 
 	public void setCountryColoc(String countryColoc) {
 		this.countryColoc = countryColoc;
+	}
+
+	public int getId_coloc() {
+		return id_coloc;
 	}
 	
 	
