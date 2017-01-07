@@ -23,15 +23,15 @@ pageEncoding="UTF-8"%>
 			<div class="panel-body"align="center">
 				<div class="container " style="margin-top: 10%; margin-bottom: 10%;">
 					<div class="panel panel-success" style="max-width: 35%;" align="left">
-						<div class="panel-heading form-group">
+						<div class="panel-heading form-group" style=" width : 562px;">
 							<div class="panel-body" >
 								
 								<form action="LoginServlet" method="post" >
 								
 								<div class="form-group">
-									<label for="exampleInputColocName">Coloc Name</label> <input
+									<label for="exampleInputColocName" align="right">Coloc Name</label > <input
 										type="text" class="form-control" name="txtColocName" id="txtColocName"
-										placeholder="Enter coloc name" required="required">
+										placeholder="Enter coloc name" required="required" >
 								</div>
 								
 								<div class="form-group">
