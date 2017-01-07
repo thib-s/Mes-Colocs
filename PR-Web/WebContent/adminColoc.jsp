@@ -41,7 +41,7 @@
 		
 			<div align="center" style="margin:auto; position:absolute; top:50%; transform:translateY(-50%); right:5%;">
 				<form action="ColocServlet" method="post">
-					<button type="submit" style="margin: auto; width: 100%; font-size:1.1em; color:white" class="btn btn-large btn btn-success btn-lg btn-block" value="logOut" name="ok" >Log Out</button>
+					<button type="submit" style="margin: auto; width: 100%; font-size:1.1em; color:white" class="btn btn-large btn btn-danger btn-lg btn-block" value="logOut" name="ok" ><b>Log Out</b></button>
 				</form>
 			</div>
 			
@@ -53,7 +53,7 @@
 
 <div class="container-fluid">
   <div class="row content">
-    <div class="col-sm-3 sidenav">
+    <div class="col-sm-2 sidenav">
       <h4 style="padding:10px;">Coloc Menu</h4>
       <ul class="nav nav-pills nav-stacked">
         <li ><a href="http://localhost:8080/PR-Web/homeColoc.jsp">Home</a></li>

@@ -7,12 +7,12 @@
 <title>Login</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body>
+<body style="background-image:url(images/coloc2.jpg); background-repeat:no-repeat; background-position:center center">
    
     <br>
-    <div class="container-fluid" style="margin:auto; padding:50px; width:50%; background-color: white;">
+    <div class="container-fluid" style="margin:auto; padding:50px; width:50%; background-color: white; opacity:0.2; ">
         <div class="panel panel-success">
-            <div class="panel-heading" align="center">
+            <div class="panel-heading" align="center" style="color:black;">
                 <h4><b><font color="black" style="font-family: fantasy; font-size:30pt;">Login</font> </b></h4>
             </div>
             <div class="panel-body"align="center">
