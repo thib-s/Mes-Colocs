@@ -10,12 +10,12 @@
 <body>
    
     <br>
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin:auto; padding:50px; width:50%; background-color: white;">
         <div class="panel panel-success">
             <div class="panel-heading" align="center">
-                <h4><b><font color="black" style="font-family: fantasy;">Create your account</font> </b></h4>
+                <h4><b><font color="black" style="font-family: fantasy; font-size:30pt;">Create your account</font> </b></h4>
             </div>
-            <div class="panel-body"align="center">
+            <div class="panel-body" align="center">
                  
                 <div class="container " style="margin-top: 10%; margin-bottom: 10%;">
    
@@ -28,32 +28,38 @@
 
                         <form action="LoginServlet" method="post" >
                         <div class="form-group">
-                                <label for="exampleInputEmail1">Email</label> <input
-                                    type="text" class="form-control" name="txtEmail" id="txtEmail"
+                                <label for="exampleInputEmail1">Email address :</label> <br> <input
+                                    type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtEmail" id="txtEmail"
                                     placeholder="Enter Email" required="required">
                                    
-                            </div>
+                            </div> <br>
                             <div class="form-group">
-                                <label for="exampleInputUserName">User Name</label> <input
-                                    type="text" class="form-control" name="txtUserName" id="txtUserName"
+                                <label for="exampleInputUserName">User Name :</label> <br> <input
+                                    type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtUserName" id="txtUserName"
                                     placeholder="Enter User Name" required="required">
                                    
-                            </div>
+                            </div> <br>
                             <div class="form-group">
-                                <label for="exampleInputPassword">Password</label> <input
-                                    type="password" class="form-control" name="txtPass" id="txtPass"
+                                <label for="exampleInputPassword">Password :</label> <br> <input
+                                    type="password" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtPass" id="txtPass"
                                     placeholder="Password" required="required">
-                            </div>
+                            </div> <br>
+                            
+							<div class="form-group">
+								<label for="exampleInputConfirmationPassword">Confirmation Password :</label> <br> <input
+									type="password" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtConfPass" id="txtPass"
+									placeholder="Confirm your password" required="required">
+							</div> <br>
                             <div class="form-group">
-                                <label for="exampleInputFirstName">First Name</label> <input
-                                    type="text" class="form-control" name="txtFirstName" id="txtFirstName"
+                                <label for="exampleInputFirstName">First Name :</label> <br> <input
+                                    type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtFirstName" id="txtFirstName"
                                     placeholder="Enter first name" required="required">
-                            </div>
+                            </div> <br>
                             <div class="form-group">
-                                <label for="exampleInputLastName">Last Name</label> <input
-                                    type="text" class="form-control" name="txtLastName" id="txtLastName"
+                                <label for="exampleInputLastName">Last Name :</label> <br> <input
+                                    type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtLastName" id="txtLastName"
                                     placeholder="Enter last name" required="required">
-                            </div>
+                            </div> <br> <br>
                             <button type="submit" style="width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="ca" name="ok"><b>Create account</b></button>                                                 
                         </form>
 
@@ -63,7 +69,7 @@
                 </div>
                
             </div>
-            <div class="panel-footer" align="center"><font style="color: #111">Copyright @2014  <a href="http://mysite.com/">mysite.com</a>, All Rights Reserved. </font></div>
+           
         </div>
     </div>
    

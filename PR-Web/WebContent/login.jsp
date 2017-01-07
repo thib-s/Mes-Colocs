@@ -28,14 +28,14 @@
 
                         <form action="LoginServlet" method="post" >
                             <div class="form-group">
-                                <label for="exampleInputEmail1">User Name :</label> <br> <input
-                                    type="text" class="form-control" name="txtUserName" id="txtUserName"
+                                <label for="exampleInputEmail1">Email address :</label> <br> <input
+                                    type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtUserName" id="txtUserName"
                                     placeholder="Enter User Name" required="required">
                                    
                             </div> <br>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password :</label> <br> <input
-                                    type="password" class="form-control" name="txtPass" id="txtPass"
+                                    type="password" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtPass" id="txtPass"
                                     placeholder="Password" required="required">
                             </div> <br><br>
                             <button type="submit" style="width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="log" name="ok" ><b>Login</b></button>

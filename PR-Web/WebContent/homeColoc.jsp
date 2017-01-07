@@ -1,5 +1,3 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1" import="model.User"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +9,7 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
     /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
-    .row.content {height: 1500px}
+    .row.content {height: 1000px}
     
     /* Set gray background color and 100% height */
     .sidenav {
@@ -36,12 +34,26 @@
     }
   </style>
 </head>
+
+<header>
+	<div align="center" style="background-color:#3371B7; padding:50px; position:relative;">
+		<font style="font-size:40pt; color:white;"><b>Mes Colocs</b></font>
+		
+			<div align="center" style="margin:auto; position:absolute; top:50%; transform:translateY(-50%); right:5%;">
+				<form action="ColocServlet" method="post">
+					<button type="submit" style="margin: auto; width: 100%; font-size:1.1em; color:white" class="btn btn-large btn btn-success btn-lg btn-block" value="logOut" name="ok" >Log Out</button>
+				</form>
+			</div>
+			
+	</div>
+</header>
+
 <body>
 
 <div class="container-fluid">
   <div class="row content">
     <div class="col-sm-3 sidenav">
-      <h4>Coloc Menu</h4>
+      <h4 style="padding:10px;">Coloc Menu</h4>
       <ul class="nav nav-pills nav-stacked">
         <li class="active"><a href="http://localhost:8080/PR-Web/homeColoc.jsp">Home</a></li>
         <li><a href="http://localhost:8080/PR-Web/shopColoc.jsp">Shopping List</a></li>
@@ -64,19 +76,8 @@
       <p>Welcome to the first version of our website Mes-Colocs.</p>
       <br><br>
       
-   <%
-
-User user =(User)session.getAttribute("sessionUser");
-String name = user.getUsername();
-String coloc = user.getMyColoc().getBlazColoc();
-%>
-     <h4><small>Your coloc</small></h4>
-      <hr>
-      <h2><%=coloc %></h2>
-      <h5><span class="glyphicon glyphicon-time"></span> Post by Team Mes-Coloc</h5>
-      <h5> <span class="label label-primary">News</span></h5><br>
-      <p><%=name %></p>
-      <br><br>
+   
+     
       
 </div></div></div>
 
