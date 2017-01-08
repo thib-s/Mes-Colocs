@@ -1,6 +1,8 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
@@ -56,7 +58,7 @@ public class Facade {
 		c.addMember(u);
 		u = em.find(User.class, user.getUsername());
 		System.out.println("ma colloc : " + u.getMyColoc().getBlazColoc());
-		
+
 	}
 
 	public Coloc getColoc(String colocname) {
@@ -69,7 +71,26 @@ public class Facade {
 		return null;
 	}
 
+	public List<Tuple<Float,Coloc>> getNearbyColoc(Coloc c) {
+		String add1;
+		String add2;
+		List<Tuple<Float,Coloc>> hresult = new ArrayList<Tuple<Float,Coloc>>();
+		add1 = c.getAddressColoc().replace(" ", "+") + "+" + c.getCityColoc();
 
+		Collection<Coloc> listColoc = em.createQuery("from Coloc",Coloc.class).getResultList();
+		for(Coloc coloc : listColoc){
+			if(!coloc.getBlazColoc().equals(c.getBlazColoc())){
+				add2 = coloc.getAddressColoc().replace(" ", "+") + "+" + c.getCityColoc();
+				System.out.println(add1 +"\n");
+				System.out.println(add2 +"\n");
+				float test = apiGoogle.ApiMaps.getDistance(add1, add2);
+				System.out.println(test + "\n");
+				hresult.add(new Tuple<Float,Coloc>(apiGoogle.ApiMaps.getDistance(add1, add2),coloc));
+			}
+		}
+
+		return hresult;
+	}
 	public Coloc addColoc(User user,String name,String address,String city, String country, String password){
 		Coloc coloc = new Coloc();
 		coloc.setBlazColoc(name);
@@ -90,6 +111,11 @@ public class Facade {
 			}
 		}
 		return false;
+	}
+	
+	public static void main(String[] args){
+		float test = apiGoogle.ApiMaps.getDistance("9+impasse+de+niaux+Toulouse","rue+camichel+Toulouse");
+		System.out.println(test);
 	}
 
 }

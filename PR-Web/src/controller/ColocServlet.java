@@ -1,7 +1,6 @@
-package controler;
+package controller;
 
 import java.io.IOException;
-import java.util.Base64;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -11,12 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import model.Facade;
 import model.User;
 /**
  * Servlet implementation class ColocServlet
  */
-public class ColocServlet {
+public class ColocServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
+	@EJB 
+	model.Facade facade;
+	
+	public ColocServlet(){
+		super();
+	}
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -28,7 +33,7 @@ public class ColocServlet {
 			String cancelAll=request.getParameter("txtCancelAll");
 		}
 		if(op.equals("task")){
-			String nature=request.getParameters("txtNature");
+			String nature=request.getParameter("txtNature");
 			String name=request.getParameter("txtName");
 			String deadline=request.getParameter("txtDeadline");
 			String cancel=request.getParameter("txtCancel");
@@ -51,6 +56,15 @@ public class ColocServlet {
 		}
 		if(op.equals("leav")){
 			String pass=request.getParameter("txtPass");
+		}
+		
+		if(op.equals("checkNearBy")) {
+			HttpSession session = request.getSession();
+			User u = (User)session.getAttribute("sessionUser");
+			System.out.println(u.getMyColoc().getBlazColoc());
+			request.setAttribute("list", facade.getNearbyColoc(u.getMyColoc()));
+			RequestDispatcher rd=request.getRequestDispatcher("nearbyColocs.jsp");
+			rd.forward(request, response);
 		}
 	}
 	

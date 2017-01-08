@@ -70,6 +70,8 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect("error.jsp");
 			}
 		}
+		
+		
 
 	}
 

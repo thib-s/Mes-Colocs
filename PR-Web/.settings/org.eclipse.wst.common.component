@@ -2,6 +2,9 @@
     <wb-module deploy-name="PR-Web">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="org.json-20161124.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib//home/titou/Downloads/org.json-20161124.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="PR-Web"/>
         <property name="java-output-path" value="/PR-Web/build/classes"/>
     </wb-module>

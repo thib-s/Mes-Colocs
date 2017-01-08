@@ -29,4 +29,16 @@
   	<url-pattern>/CreateColocServlet</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+  	<description></description>
+  	<display-name>ColocServlet</display-name>
+  	<servlet-name>ColocServlet</servlet-name>
+  	<servlet-class>controller.ColocServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ColocServlet</servlet-name>
+  	<url-pattern>/ColocServlet</url-pattern>
+  </servlet-mapping>
+  
 </web-app> 

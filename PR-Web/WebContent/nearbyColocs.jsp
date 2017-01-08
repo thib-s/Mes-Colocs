@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="model.*,java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -67,9 +69,35 @@
       </ul><br>
     </div>
 
+
+<%
+				User user = (User) session.getAttribute("sessionUser");
+				String name = user.getUsername();
+				Coloc coloc = user.getMyColoc();
+				ArrayList<Tuple<Float,Coloc>> list = (ArrayList<Tuple<Float,Coloc>>) request.getAttribute("list");
+				if (list == null) {
+			%>
+			
     <div class="col-sm-9">
       <h4><small>Check nearby colocs</small></h4>
-     
+     <form action="ColocServlet" method="post">
+					<button type="submit" style="width: 100%; font-size: 1.1em;"
+						class="btn btn-large btn btn-success btn-lg btn-block"
+						value="checkNearBy" name="ok">
+						<b>Check NearBy Colocs</b>
+					</button>
+				</form>
+				<%
+					} else {
+						for(Tuple<Float,Coloc> t : list) {
+							%>
+							<ul class="nav nav-pills nav-stacked">
+					<li><a> <%=t.y.getBlazColoc()%> se trouve Ã  <%=t.x %> km de chez vous.</a></li>
+				</ul>
+				<% 
+						}
+					}
+				%>
       
    
      
