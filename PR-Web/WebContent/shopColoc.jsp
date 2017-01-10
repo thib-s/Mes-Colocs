@@ -75,8 +75,13 @@
         		type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtItem" id="txtColocName"
             	placeholder="Enter the item" required="required">     
       	</div> <br>
+      	<div class="form-group">
+      		<label for="exampleInputColoc"> Quantity : </label> <br><input
+        		type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtQuantity" id="txtColocName"
+            	placeholder="Enter the item's quantity" required="required"> 
+      	</div> <br>
       	<form action="ColocServlet" method="post">
-      		<button type="submit" style="margin: auto; width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="join" name="ok" ><b>Join</b></button>
+      		<button type="submit" style="margin: auto; width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="addItem" name="ok" ><b>Add</b></button>
      	</form>
       
    
