@@ -8,6 +8,6 @@
 </head>
 <body>
 
-<h1>Hi user name and password not match try again <a href="login.jsp">Back to Login</a>  </h1>
+<h1>Username or password does not match  <a href="login.jsp">Back to Login</a>  </h1>
 </body>
 </html>

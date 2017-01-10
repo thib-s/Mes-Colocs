@@ -113,6 +113,10 @@ public class Facade {
 		return false;
 	}
 	
+	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {
+		
+	}
+	
 	public static void main(String[] args){
 		float test = apiGoogle.ApiMaps.getDistance("9+impasse+de+niaux+Toulouse","rue+camichel+Toulouse");
 		System.out.println(test);

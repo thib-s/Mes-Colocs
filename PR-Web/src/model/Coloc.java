@@ -39,6 +39,8 @@ public class Coloc {
 		this.shoppingLists = new HashSet<ShoppingList>();
 	}
 	
+	
+	
 	/**
 	 * adds a user to the coloc
 	 * @param user: the user to add

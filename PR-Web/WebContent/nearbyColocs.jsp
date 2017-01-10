@@ -72,9 +72,17 @@
 
 <%
 				User user = (User) session.getAttribute("sessionUser");
+				if(user == null) {
+					%>
+					
+					You are not logged in !.
+					
+					<%
+				} else {
 				String name = user.getUsername();
 				Coloc coloc = user.getMyColoc();
 				ArrayList<Tuple<Float,Coloc>> list = (ArrayList<Tuple<Float,Coloc>>) request.getAttribute("list");
+				
 				if (list == null) {
 			%>
 			
@@ -97,6 +105,7 @@
 				<% 
 						}
 					}
+				}
 				%>
       
    

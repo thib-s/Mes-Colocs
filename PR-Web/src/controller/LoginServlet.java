@@ -38,12 +38,17 @@ public class LoginServlet extends HttpServlet {
 			String name=request.getParameter("txtUserName");
 			String pass=request.getParameter("txtPass");
 			String email=request.getParameter("txtEmail");
+			String confPass=request.getParameter("txtConfPass");
 			String firstname=request.getParameter("txtFirstName");
 			String lastname=request.getParameter("txtLastName");
 			System.out.println("name : " + name + " pass : " + pass + " email : " + email + " firstname : " + firstname + " lastname : " + lastname);
 			System.out.println(b64encode.getEncoder().encodeToString(pass.getBytes()));
+			if(confPass.equals(pass)){
 			facade.addUser(name, firstname, lastname, b64encode.getEncoder().encodeToString(pass.getBytes()), email);
 			request.getRequestDispatcher("login.jsp").forward(request,response);
+			} else {
+				response.sendRedirect("passNotMatch.jsp");
+			}
 		}
 
 		if(op.equals("log")){
