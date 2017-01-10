@@ -47,5 +47,4 @@ public class ApiMaps {
 		return -1;
 	}
 	
-	
 }

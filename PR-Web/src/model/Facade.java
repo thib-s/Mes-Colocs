@@ -80,7 +80,7 @@ public class Facade {
 		Collection<Coloc> listColoc = em.createQuery("from Coloc",Coloc.class).getResultList();
 		for(Coloc coloc : listColoc){
 			if(!coloc.getBlazColoc().equals(c.getBlazColoc())){
-				add2 = coloc.getAddressColoc().replace(" ", "+") + "+" + c.getCityColoc();
+				add2 = coloc.getAddressColoc().replace(" ", "+") + "+" + coloc.getCityColoc();
 				System.out.println(add1 +"\n");
 				System.out.println(add2 +"\n");
 				float test = apiGoogle.ApiMaps.getDistance(add1, add2);

@@ -97,14 +97,20 @@
 				</form>
 				<%
 					} else {
+						%>
+						<div class="container">
+						<ul class="nav nav-pills nav-stacked">
+						<%
 						for(Tuple<Float,Coloc> t : list) {
 							%>
-							<ul class="nav nav-pills nav-stacked">
-					<li><a> <%=t.y.getBlazColoc()%> se trouve Ã  <%=t.x %> km de chez vous.</a></li>
-				</ul>
+					<li><a> <%=t.y.getBlazColoc()%> is   <%=t.x %> km away from you. </a></li>
 				<% 
 						}
 					}
+				%>
+				</ul>
+				</div>
+				<%
 				}
 				%>
       
