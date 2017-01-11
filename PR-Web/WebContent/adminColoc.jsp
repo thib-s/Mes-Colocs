@@ -68,7 +68,7 @@
       </ul><br>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Administrate your coloc</small></h4>
      
       

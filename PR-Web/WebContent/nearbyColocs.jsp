@@ -86,7 +86,7 @@
 				if (list == null) {
 			%>
 			
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Check nearby colocs</small></h4>
      <form action="ColocServlet" method="post">
 					<button type="submit" style="width: 100%; font-size: 1.1em;"

@@ -74,7 +74,7 @@ footer {
 			</div>
 			
 			
-			<div class="col-sm-9">
+			<div class="col-sm-9" style="padding:15px; margin-left:20px">
   				<br><br>
             	<form action="http://localhost:8080/PR-Web/joinColoc.jsp">
     			<input type="submit" style="margin: auto; padding:15px; width: 60%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="Join a coloc" name="ok" >

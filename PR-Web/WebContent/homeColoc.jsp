@@ -67,7 +67,7 @@
       </ul><br>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Latest News</small></h4>
       <hr>
       <h2>I Love ENSEEIHT</h2>

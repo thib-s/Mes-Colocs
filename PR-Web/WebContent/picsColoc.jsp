@@ -69,7 +69,7 @@
       </ul><br>
     </div>
 
-    <div class="col-sm-9">
+    <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Pics of your colocs</small></h4>
      
     	<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">

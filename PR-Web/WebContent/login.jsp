@@ -70,7 +70,7 @@ footer {
 			</div>
 
 
-			<div class="col-sm-9">
+			<div class="col-sm-9" style="padding:15px; margin-left:20px">
 				<form action="LoginServlet" method="post">
 
 					<div class="form-group">
