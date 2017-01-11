@@ -157,7 +157,7 @@ footer {
 						<%
 						for(Tuple<Float,Coloc> t : list) {
 							%>
-						<li><a> <%=t.y.getBlazColoc()%> is   <%=t.x %> km away
+						<li><a href="https://www.google.fr/maps/dir/<%=coloc.getAddressColoc()%>,+<%=coloc.getCityColoc()%>,+<%=coloc.getCountryColoc()%>/<%=t.y.getAddressColoc()%>,+<%=t.y.getCityColoc()%>,+<%=t.y.getCountryColoc()%>"> <%=t.y.getBlazColoc()%> is   <%=t.x %> km away
 								from you.
 						</a></li>
 						<% 
