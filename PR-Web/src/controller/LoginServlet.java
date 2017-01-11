@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 			System.out.println("name : " + name + " pass : " + pass + " email : " + email + " firstname : " + firstname + " lastname : " + lastname);
 			System.out.println(b64encode.getEncoder().encodeToString(pass.getBytes()));
 			if(confPass.equals(pass)){
-			facade.addUser(name, firstname, lastname, b64encode.getEncoder().encodeToString(pass.getBytes()), email);
+			facade.addUser(email, firstname, lastname, b64encode.getEncoder().encodeToString(pass.getBytes()), name);
 			request.getRequestDispatcher("login.jsp").forward(request,response);
 			} else {
 				response.sendRedirect("passNotMatch.jsp");
@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		}
 
 		if(op.equals("log")){
-			String name=request.getParameter("txtUserName");
+			String name=request.getParameter("txtEmail");
 			String pass=request.getParameter("txtPass");
 			System.out.println(facade.userExists(name, b64encode.getEncoder().encodeToString(pass.getBytes())));
 			if( facade.userExists(name, b64encode.getEncoder().encodeToString(pass.getBytes())))
