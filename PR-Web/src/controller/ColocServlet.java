@@ -67,6 +67,7 @@ public class ColocServlet extends HttpServlet{
 			if(op.equals("checkNearBy")) {
 				System.out.println(user.getMyColoc().getBlazColoc());
 				request.setAttribute("list", facade.getNearbyColoc(user.getMyColoc()));
+				request.setAttribute("listPins", facade.getNearbyColocPins(user.getMyColoc()));
 				RequestDispatcher rd=request.getRequestDispatcher("nearbyColocs.jsp");
 				rd.forward(request, response);
 			}

@@ -7,6 +7,7 @@ import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import apiGoogle.*;
 
 @Singleton
 public class Facade {
@@ -79,7 +80,7 @@ public class Facade {
 
 		Collection<Coloc> listColoc = em.createQuery("from Coloc",Coloc.class).getResultList();
 		for(Coloc coloc : listColoc){
-			if(!coloc.getBlazColoc().equals(c.getBlazColoc())){
+			if(!coloc.getBlazColoc().equals(c.getBlazColoc()) && coloc.getCityColoc().equals(c.getCityColoc())){
 				add2 = coloc.getAddressColoc().replace(" ", "+") + "+" + coloc.getCityColoc();
 				System.out.println(add1 +"\n");
 				System.out.println(add2 +"\n");
@@ -90,6 +91,30 @@ public class Facade {
 		}
 
 		return hresult;
+	}
+
+	public List<Location> getNearbyColocPins(Coloc c) {
+		String add1;
+		String add2;
+		List<Location> presult = new ArrayList<Location>();
+		add1 = c.getAddressColoc().replace(" ", "+") + "+" + c.getCityColoc();
+
+		Collection<Coloc> listColoc = em.createQuery("from Coloc", Coloc.class).getResultList();
+		for(Coloc coloc : listColoc){
+			if(!coloc.getBlazColoc().equals(c.getBlazColoc()) && coloc.getCityColoc().equals(c.getCityColoc())){
+				add2 = coloc.getAddressColoc().replace(" ", "+") + "+" + coloc.getCityColoc();
+				Tuple<Location,Location> location = apiGoogle.ApiMaps.getLocation(add1, add2);
+				if(!presult.contains(location.x)){
+					presult.add(location.x);
+				}
+				if(!presult.contains(location.y)){
+					presult.add(location.y);
+				}
+				
+			}
+		}
+
+		return presult;
 	}
 	public Coloc addColoc(User user,String name,String address,String city, String country, String password){
 		Coloc coloc = new Coloc();
@@ -112,11 +137,11 @@ public class Facade {
 		}
 		return false;
 	}
-	
+
 	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {
-		
+
 	}
-	
+
 	public static void main(String[] args){
 		float test = apiGoogle.ApiMaps.getDistance("9+impasse+de+niaux+Toulouse","rue+camichel+Toulouse");
 		System.out.println(test);
