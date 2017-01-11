@@ -70,7 +70,22 @@
     <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Leave your coloc</small></h4>
      
-      
+      	<form action="ColocServlet" method="post">
+					<br>
+					<div class="form-group">
+						<label for="exampleInputPassword1">Password :</label> <br> <input
+							type="password"
+							style="width: 100%; margin: auto; box-sizing: border-box;"
+							class="form-control" name="txtPass" id="txtPass"
+							placeholder="Password" required="required">
+					</div>
+					<br> <br>
+					<button type="submit" style="width: 100%; font-size: 1.1em;"
+						class="btn btn-large btn btn-success btn-lg btn-block" value="leave"
+						name="ok">
+						<b>Leave coloc</b>
+					</button>
+				</form>
    
      
       

@@ -91,6 +91,7 @@ public class Coloc {
 	}
 
 	public void setBlazColoc(String blazColoc) {
+		
 		this.blazColoc = blazColoc;
 	}
 

@@ -79,10 +79,9 @@ public class CreateColocServlet extends HttpServlet {
 					// Wrong coloc
 					response.sendRedirect("error.jsp");
 				}
+			} else {
+				response.sendRedirect("mustBeLoggedIn.jsp");
 			}
-
-		} else {
-			response.sendRedirect("mustBeLoggedIn.jsp");
 		}
 	}
 

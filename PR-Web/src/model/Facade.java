@@ -11,7 +11,7 @@ import apiGoogle.*;
 
 @Singleton
 public class Facade {
-
+	
 	@PersistenceContext
 	EntityManager em;
 
@@ -62,6 +62,11 @@ public class Facade {
 
 	}
 
+	public void removeUserFromColoc(User user) {
+		User u = em.find(User.class, user.getUsername());
+		u.setMyColoc(null);
+	}
+
 	public Coloc getColoc(String colocname) {
 		Collection<Coloc> listColoc = em.createQuery("from Coloc", Coloc.class).getResultList();
 		for(Coloc c : listColoc){
@@ -70,6 +75,22 @@ public class Facade {
 			}
 		}
 		return null;
+	}
+
+	public boolean colocMatchPass(Coloc c,String pass){
+		Coloc coloc = em.find(Coloc.class, c.getId_coloc());
+		return coloc.getPasswordColoc().equals(pass);
+	}
+	public void changeColocName(Coloc c, String cName){
+		Coloc coloc = em.find(Coloc.class, c.getId_coloc());
+		coloc.setBlazColoc(cName);
+	}
+
+	public void changeColocAddress(Coloc c,String cAddress,String cCity,String cCountry) {
+		Coloc coloc = em.find(Coloc.class, c.getId_coloc());
+		coloc.setAddressColoc(cAddress);
+		coloc.setCityColoc(cCity);
+		coloc.setCountryColoc(cCountry);
 	}
 
 	public List<Tuple<Float,Coloc>> getNearbyColoc(Coloc c) {
@@ -110,7 +131,7 @@ public class Facade {
 				if(!presult.contains(location.y)){
 					presult.add(location.y);
 				}
-				
+
 			}
 		}
 

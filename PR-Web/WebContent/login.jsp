@@ -77,7 +77,7 @@ footer {
 						<label for="exampleInputEmail1">Email address :</label> <br>
 						<input type="text"
 							style="width: 100%; margin: auto; box-sizing: border-box;"
-							class="form-control" name="txtUserName" id="txtEmail"
+							class="form-control" name="txtEmail" id="txtEmail"
 							placeholder="Enter Email Adress" required="required">
 
 					</div>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.Base64;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -16,6 +17,7 @@ import model.*;
  */
 public class ColocServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
+	private static Base64 b64encode ;
 	@EJB 
 	model.Facade facade;
 
@@ -58,11 +60,16 @@ public class ColocServlet extends HttpServlet{
 			if(op.equals("Pict")){
 				// Gestion image
 			}
-			if(op.equals("admin")){
-				// Administrer
-			}
-			if(op.equals("leav")){
+			if(op.equals("leave")){
 				String pass=request.getParameter("txtPass");
+				
+				if(facade.userExists(user.getUsername(), b64encode.getEncoder().encodeToString(pass.getBytes()))){
+					facade.removeUserFromColoc(user);
+				}
+				user.setMyColoc(null);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("menuLoggedIn.jsp");
+				rd.forward(request, response);
 			}
 			if(op.equals("checkNearBy")) {
 				System.out.println(user.getMyColoc().getBlazColoc());
@@ -70,6 +77,33 @@ public class ColocServlet extends HttpServlet{
 				request.setAttribute("listPins", facade.getNearbyColocPins(user.getMyColoc()));
 				RequestDispatcher rd=request.getRequestDispatcher("nearbyColocs.jsp");
 				rd.forward(request, response);
+			}
+			if(op.equals("changeName")){
+				String cName = request.getParameter("txtNewColocName");
+				String pass = request.getParameter("txtPass");
+				
+				Coloc c = user.getMyColoc();
+				if(facade.colocMatchPass(c, b64encode.getEncoder().encodeToString(pass.getBytes()))){
+					facade.changeColocName(c,cName);
+				}
+				user.getMyColoc().setBlazColoc(cName);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("adminColoc.jsp");
+				rd.forward(request, response);
+			}
+			if(op.equals("changeAddress")){
+				String cAddress = request.getParameter("txtNewColocAddress");
+				String cCity = request.getParameter("txtNewColocCity");
+				String cCountry = request.getParameter("txtNewColocCountry");
+				String pass = request.getParameter("txtPass");
+				Coloc c = user.getMyColoc();
+				if(facade.colocMatchPass(c, b64encode.getEncoder().encodeToString(pass.getBytes()))){
+					facade.changeColocAddress(c, cAddress, cCity, cCountry);
+				}
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("adminColoc.jsp");
+				rd.forward(request, response);
+				
 			}
 		} else {
 			response.sendRedirect("mustBeLoggedIn.jsp");
