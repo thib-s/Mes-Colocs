@@ -40,9 +40,10 @@ public class ColocServlet extends HttpServlet{
 				String item =request.getParameter("txtItem");
 				String txtQuantity=request.getParameter("txtQuantity");
 				int quantity = Integer.parseInt(txtQuantity);
-
 				facade.addItemToShoppingList(coloc,item,quantity);
-
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("shopColoc.jsp");
+				rd.forward(request, response);
 			}
 			if(op.equals("task")){
 				String nature=request.getParameter("txtNature");
