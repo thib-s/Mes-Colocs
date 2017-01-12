@@ -33,6 +33,10 @@ public class ShoppingList {
 		this.items = new ArrayList<ShoppingItem>();
 	}
 	
+	public List<ShoppingItem> getItems() {
+		return items;
+	}
+
 	public boolean addItem(ShoppingItem item){
 		return this.items.add(item);
 	}

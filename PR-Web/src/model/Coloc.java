@@ -21,7 +21,7 @@ public class Coloc {
 	private String countryColoc; /** county of the coloc**/
 	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
-	@OneToMany
+	@OneToMany(targetEntity=model.ShoppingList.class, fetch=javax.persistence.FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
 	@OneToMany
 	private Set<Event> events;/** various events assoicated to the coloc */
@@ -130,6 +130,12 @@ public class Coloc {
 	public int getId_coloc() {
 		return id_coloc;
 	}
+
+	public Set<ShoppingList> getShoppingLists() {
+		return shoppingLists;
+	}
+	
+	
 	
 	
 }
