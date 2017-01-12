@@ -30,7 +30,7 @@ public class ColocServlet extends HttpServlet{
 		String op = request.getParameter("ok");
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("sessionUser");
-		if(user != null) {
+		if((user != null)&&(op != null)) {
 			if(op.equals("logOut")){
 				session.invalidate();
 				response.sendRedirect("login.jsp");
