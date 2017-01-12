@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" import="model.*,java.util.*"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,7 +71,96 @@
 
     <div class="col-sm-9" style="padding:15px; margin-left:20px">
       	<h4><small>Shopping list of your colocs</small></h4>
-      
+      	
+      	<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-list"></span>Shopping list
+                    <div class="pull-right action-buttons">
+                        <div class="btn-group pull-right">
+                            <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-cog" style="margin-right: 0px;"></span>
+                            </button>
+                            <ul class="dropdown-menu slidedown">
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
+                                <li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-flag"></span>Flag</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                    			<%
+				User user = (User) session.getAttribute("sessionUser");
+				if(user == null) {
+					%>
+
+			You are not logged in !.
+
+			<%
+				} else {
+				String name = user.getUsername();
+				Coloc coloc = user.getMyColoc();
+				Set<ShoppingList> lists = coloc.getShoppingLists();
+				for (ShoppingList list : lists){
+					for (ShoppingItem it: list.getItems()){
+			%>
+                    
+                        <li class="list-group-item">
+                            <div class="checkbox">
+                                <input type="checkbox" id="checkbox" />
+                                <label for="checkbox">
+                                    <%System.out.println(it.getItemName()); %>
+                                </label>
+                            </div>
+                            <div>
+                            	<label>
+                            	<% System.out.println(it.getQuantity()); %>
+                            	</label>
+                            </div>
+                            <div>
+                            	<label>
+                            	<% System.out.println(it.getLastBuyDate().toGMTString()); %>
+                            	</label>
+                            </div>
+                            <div class="pull-right action-buttons">
+                                <a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="http://www.jquery2dotnet.com" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
+                                <button type="submit" class="buy" value="addItem" name="buy"></button><span class="glyphicon glyphicon-flag"></span></button>
+                            </div>
+                        </li>
+            <%}}}%>
+                    
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6>
+                                Total Count <span class="label label-info">25</span></h6>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="pagination pagination-sm pull-right">
+                                <li class="disabled"><a href="javascript:void(0)">«</a></li>
+                                <li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="http://www.jquery2dotnet.com">2</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">3</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">4</a></li>
+                                <li><a href="http://www.jquery2dotnet.com">5</a></li>
+                                <li><a href="javascript:void(0)">»</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      	
+      <form action="ColocServlet" method="post">
 		<div class="form-group">
       		<label for="exampleInputColoc">Add an item :</label> <br> <input
         		type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtItem" id="txtColocName"
@@ -80,7 +171,7 @@
         		type="text" style="width:100%; margin:auto; box-sizing: border-box;" class="form-control" name="txtQuantity" id="txtColocName"
             	placeholder="Enter the item's quantity" required="required"> 
       	</div> <br>
-      	<form action="ColocServlet" method="post">
+      	
       		<button type="submit" style="margin: auto; width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="addItem" name="ok" ><b>Add</b></button>
      	</form>
       
