@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 import javax.ejb.EJB;
+import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,6 +25,7 @@ public class CreateColocServlet extends HttpServlet {
 
 	@EJB 
 	model.Facade facade;
+	private EntityManager entityManager;
 	/**
 	 * Default constructor.
 	 */
@@ -54,6 +56,7 @@ public class CreateColocServlet extends HttpServlet {
 					Coloc coloc = facade.addColoc(user, cName, address, city, country, b64encode.getEncoder().encodeToString(pass.getBytes()));
 					facade.bindUserColoc(user,coloc);
 					user = facade.getUser(user.getUsername());
+					entityManager.persist(coloc);
 					session.setAttribute("sessionUser", user);
 					request.getRequestDispatcher("homeColoc.jsp").forward(request,response);
 				} else {
