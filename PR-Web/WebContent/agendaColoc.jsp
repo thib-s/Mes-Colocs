@@ -1,3 +1,4 @@
+<%@ page import = "java.util.*, model.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -32,6 +33,35 @@
       }
       .row.content {height: auto;} 
     }
+    
+    .agenda {  }
+
+	/* Dates */
+	.agenda .agenda-date { width: 170px; }
+	.agenda .agenda-date .dayofmonth {
+	  width: 40px;
+	  font-size: 36px;
+	  line-height: 36px;
+	  float: left;
+	  text-align: right;
+	  margin-right: 10px; 
+	}
+	.agenda .agenda-date .shortdate {
+	  font-size: 0.75em; 
+	}
+	
+	
+	/* Times */
+	.agenda .agenda-time { width: 180px; } 
+	
+	
+	/* Events */
+	.agenda .agenda-events {  } 
+	.agenda .agenda-events .agenda-event {  } 
+	
+	@media (max-width: 767px) {
+	    
+	}
   </style>
 </head>
 
@@ -60,7 +90,7 @@
         <li><a href="http://localhost:8080/PR-Web/shopColoc.jsp">Shopping List</a></li>
         <li><a href="http://localhost:8080/PR-Web/tasksColoc.jsp">Tasks</a></li>
         <li><a href="http://localhost:8080/PR-Web/expensesColoc.jsp">Expenses</a></li>
-        <li class="active"><a href="http://localhost:8080/PR-Web/agendaColoc.jsp">Agenda</a></li>
+        <li class="active"><a href="ColocServlet?ok=Agen">Agenda</a></li>
         <li><a href="http://localhost:8080/PR-Web/nearbyColocs.jsp">Nearby Colocs</a></li>
         <li><a href="http://localhost:8080/PR-Web/picsColoc.jsp">Pictures</a></li>
         <li ><a href="http://localhost:8080/PR-Web/adminColoc.jsp">Administrate Coloc</a></li>
@@ -70,8 +100,151 @@
 
     <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Agenda of your coloc</small></h4>
+      
+      <form action="ColocServlet" method="post">
+
+			<div class="form-group">
+				<label for="exampleInputDate">Date (dd/mm/yyyy) :</label>
+				<input type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDate" id="txtDate"
+					placeholder="Enter the date like this dd/mm/yyyy" required="required">
+
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputTime">Time (hh:mm[-hh:mm]) :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtTime" id="txtTime"
+					placeholder="Enter the time. The second time (end of event) is optional" required="required">
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputTime">Description :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDesc" id="txtDesc"
+					placeholder="Enter the event description" required="required">
+			</div>
+			
+			<button type="submit" style="font-size: 1.1em;"
+				class="btn btn-large btn btn-success btn-lg" value="addEvent"
+				name="ok">
+				<b>Add an event</b>
+			</button>
+			<br> <br>
+		</form>
      
       
+	    <div class="agenda">
+	        <div class="table-responsive">
+	            <table class="table table-condensed table-bordered">
+	                <thead>
+	                    <tr>
+	                        <th>Date</th>
+	                        <th>Time</th>
+	                        <th>Event</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                
+	                	<%	HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)request.getAttribute("eventsMap"); 	                		
+							for (Date dayDate : eventsMap.keySet()) { 
+								List<Event> eventsList = eventsMap.get(dayDate);
+								int size = eventsList.size();
+								if (size == 1) {
+									Calendar cal = Calendar.getInstance();
+								    cal.setTime(dayDate);
+								    int year = cal.get(Calendar.YEAR);
+								    String month = Utils.intToMonth(cal.get(Calendar.MONTH));
+								    int day = cal.get(Calendar.DAY_OF_MONTH);
+								    String dayWeek = Utils.intToDay(cal.get(Calendar.DAY_OF_WEEK));
+								    Event event = eventsList.get(0);
+								    cal.setTime(event.getBeginTime());
+								    int beginTimeH = cal.get(Calendar.HOUR_OF_DAY);
+								    int beginTimeM = cal.get(Calendar.MINUTE);
+								    Date endTime = event.getEndTime();
+								    int endTimeH = 0;
+								    int endTimeM = 0;
+								    if (endTime != null) {
+								    	cal.setTime(endTime);
+								    	endTimeH = cal.get(Calendar.HOUR_OF_DAY);
+									    endTimeM = cal.get(Calendar.MINUTE);
+								    }
+								%>
+								
+				                    <!-- Single event in a single day -->
+				                    <tr>
+				                        <td class="agenda-date" class="active" rowspan="1">
+				                            <div class="dayofmonth"><%=day %></div>
+				                            <div class="dayofweek"><%=dayWeek %></div>
+				                            <div class="shortdate text-muted"><%=month %>, <%=year %></div>
+				                        </td>
+				                        <td class="agenda-time">
+				                            <%=beginTimeH %>:<%=beginTimeM %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
+				                        </td>
+				                        <td class="agenda-events">
+				                            <div class="agenda-event">
+				                                <%=event.getDescription() %>
+				                            </div>
+				                        </td>
+				                    </tr>
+				                    
+								<%} else if(size > 0) { 
+										int k=0;
+										Calendar cal = Calendar.getInstance();
+									    cal.setTime(dayDate);
+									    int year = cal.get(Calendar.YEAR);
+									    String month = Utils.intToMonth(cal.get(Calendar.MONTH));
+									    int day = cal.get(Calendar.DAY_OF_MONTH);
+									    String dayWeek = Utils.intToDay(cal.get(Calendar.DAY_OF_WEEK));%>
+								
+									<!-- Multiple events in a single day (note the rowspan) -->
+									<tr>
+				                        <td class="agenda-date" class="active" rowspan=<%=size %>>
+				                            <div class="dayofmonth"><%=day %></div>
+				                            <div class="dayofweek"><%=dayWeek %></div>
+				                            <div class="shortdate text-muted"><%=month %>, <%=year %></div>
+				                        </td>
+								<%
+										for (Event event : eventsList) {
+											k++;
+										    cal.setTime(event.getBeginTime());
+										    int beginTimeH = cal.get(Calendar.HOUR_OF_DAY);
+										    int beginTimeM = cal.get(Calendar.MINUTE);
+										    Date endTime = event.getEndTime();
+										    int endTimeH = 0;
+										    int endTimeM = 0;
+										    if (endTime != null) {
+										    	cal.setTime(endTime);
+										    	endTimeH = cal.get(Calendar.HOUR_OF_DAY);
+											    endTimeM = cal.get(Calendar.MINUTE);
+										    }
+								    %>
+	                    
+									
+				                        <td class="agenda-time">
+				                            <%=beginTimeH %>:<%=beginTimeM %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
+				                        </td>
+				                        <td class="agenda-events">
+				                            <div class="agenda-event">
+				                                <%=event.getDescription() %>
+				                            </div>
+				                        </td>
+				                    </tr>
+				                    		<%if (k!=size) { %>
+				                   	<tr>
+				                   			<%} %>
+						                    
+								<%		} 
+								  } %>
+	                    
+	                    <% } %>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
    
      
       

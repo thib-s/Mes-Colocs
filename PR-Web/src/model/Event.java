@@ -1,7 +1,15 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Event {
@@ -10,46 +18,79 @@ public class Event {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	private String intitule;
-	private Date dateDebut;
-	private Date dateFin;
+	private String description;
+	private Date day;
+	private Date beginTime;
+	private Date endTime;
+	
+	@ManyToOne
+	private Coloc coloc;
 	
 	public Event() {
 		super();
-		this.intitule = "";
-		this.dateDebut = null;
-		this.dateFin = null;
+		this.description = "";
+		this.day = null;
+		this.beginTime = null;
+		this.endTime = null;
+		this.coloc = null;
 	}
 	
-	public Event(String intitule, Date dateDebut, Date dateFin) {
+	public Event(String description, Date day, Date beginTime) {
 		super();
-		this.intitule = intitule;
-		this.dateDebut = dateDebut;
-		this.dateFin = dateFin;
+		this.description = description;
+		this.day = day;
+		this.beginTime = beginTime;
+		this.endTime = null;
+		this.coloc = null;
+	}
+	
+	public Event(String description, Date day, Date beginTime, Date endTime) {
+		super();
+		this.description = description;
+		this.day = day;
+		this.beginTime = beginTime;
+		this.endTime = endTime;
+		this.coloc = null;
 	}
 
-	public String getIntitule() {
-		return intitule;
+	public Coloc getColoc() {
+		return coloc;
 	}
 
-	public void setIntitule(String intitule) {
-		this.intitule = intitule;
+	public void setColoc(Coloc coloc) {
+		this.coloc = coloc;
 	}
 
-	public Date getDateDebut() {
-		return dateDebut;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDateDebut(Date dateDebut) {
-		this.dateDebut = dateDebut;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
-	public Date getDateFin() {
-		return dateFin;
+	public Date getBeginTime() {
+		return beginTime;
 	}
 
-	public void setDateFin(Date dateFin) {
-		this.dateFin = dateFin;
+	public void setBeginTime(Date beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+	
+	public Date getDay() {
+		return day;
+	}
+
+	public void setDay(Date day) {
+		this.day = day;
 	}
 
 }

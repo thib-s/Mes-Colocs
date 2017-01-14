@@ -82,7 +82,7 @@ footer {
 							List</a></li>
 					<li><a href="http://localhost:8080/PR-Web/tasksColoc.jsp">Tasks</a></li>
 					<li><a href="http://localhost:8080/PR-Web/expensesColoc.jsp">Expenses</a></li>
-					<li><a href="http://localhost:8080/PR-Web/agendaColoc.jsp">Agenda</a></li>
+					<li><a href="ColocServlet?ok=Agen">Agenda</a></li>
 					<li class="active"><a
 						href="http://localhost:8080/PR-Web/nearbyColocs.jsp">Nearby
 							Colocs</a></li>

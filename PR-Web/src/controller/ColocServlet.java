@@ -2,6 +2,9 @@ package controller;
 
 import java.io.IOException;
 import java.util.Base64;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -30,6 +33,7 @@ public class ColocServlet extends HttpServlet{
 		String op = request.getParameter("ok");
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("sessionUser");
+		user = facade.getUser(user.getUsername());
 		if((user != null)&&(op != null)) {
 			if(op.equals("logOut")){
 				session.invalidate();
@@ -55,8 +59,25 @@ public class ColocServlet extends HttpServlet{
 				// MAnque des choses
 				String add=request.getParameter("txtAdd");
 			}
-			if(op.equals("Agen")){
-				String addEvent=request.getParameter("txtAddEvent");
+			if(op.equals("addEvent")){
+				Coloc coloc = user.getMyColoc();
+				String date = request.getParameter("txtDate");
+				String time = request.getParameter("txtTime");
+				String desc = request.getParameter("txtDesc");
+				facade.addEvent(date, time, desc, coloc);
+				HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)coloc.getEvents();
+				request.setAttribute("eventsMap", eventsMap);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("agendaColoc.jsp");
+				rd.forward(request, response);
+			}
+			if (op.equals("Agen")) {
+				Coloc coloc = user.getMyColoc();
+				HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)coloc.getEvents();
+				request.setAttribute("eventsMap", eventsMap);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("agendaColoc.jsp");
+				rd.forward(request, response);
 			}
 			if(op.equals("Pict")){
 				// Gestion image

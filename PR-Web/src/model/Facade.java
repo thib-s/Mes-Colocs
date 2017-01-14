@@ -1,7 +1,10 @@
 package model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.Singleton;
@@ -158,14 +161,43 @@ public class Facade {
 		}
 		return false;
 	}
+	
+	public void addEvent(String inputDate, String inputTime, String description, Coloc coloc) {
+		SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy"); 
+		SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
+		String beginDateString = inputTime.substring(0,4);
+		Date begin = null;
+		Date day = null;
+		Event event = null;
+		try {
+			day = sdfDay.parse(inputDate);
+			begin = sdfTime.parse(beginDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if (inputTime.length() > 5) {
+			String endDateString = inputTime.substring(6,10);
+			Date end = null;
+			try {
+				end = sdfTime.parse(endDateString);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			event = new Event(description, day, begin, end);
+		} else {
+			event = new Event(description, day, begin);
+		}
+		em.persist(event);
+		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
+		event.setColoc(c);
+	}
 
 	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {
 
 	}
 
 	public static void main(String[] args){
-		float test = apiGoogle.ApiMaps.getDistance("9+impasse+de+niaux+Toulouse","rue+camichel+Toulouse");
-		System.out.println(test);
+		
 	}
 
 }

@@ -3,9 +3,21 @@
  */
 package model;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Transient;
 
 
 @Entity
@@ -23,8 +35,8 @@ public class Coloc {
 	private Set<User> members;/** the users associated to a coloc */
 	@OneToMany(targetEntity=model.ShoppingList.class, fetch=javax.persistence.FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
-	@OneToMany
-	private Set<Event> events;/** various events assoicated to the coloc */
+	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER)
+	private List<Event> eventsList;/** various events associated with the coloc */
 	
 	public Coloc(){
 		this.blazColoc = "";
@@ -41,6 +53,21 @@ public class Coloc {
 	
 	
 	
+	public Map<Date, List<Event>> getEvents() {
+		Map<Date, List<Event>> map = new HashMap<Date, List<Event>>();
+		for (Event e : eventsList) {
+			Date day = e.getDay();
+			if (map.containsKey(day)) {
+				map.get(day).add(e);
+			} else {
+				List<Event> list = new ArrayList<Event>();
+				list.add(e);
+				map.put(day, list);
+			}
+		}
+		return map;
+	}
+
 	/**
 	 * adds a user to the coloc
 	 * @param user: the user to add
@@ -73,8 +100,8 @@ public class Coloc {
 	 * @param event
 	 * @return the result of the operation
 	 */
-	public boolean addEvent(Event event){
-		return this.events.add(event);
+	public void addEvent(Event event){
+		eventsList.add(event);
 	}
 	
 	/**
@@ -82,8 +109,8 @@ public class Coloc {
 	 * @param event
 	 * @return the result of the operation
 	 */
-	public boolean removeEvent(Event event){
-		return this.events.remove(event);
+	public void removeEvent(Event event){
+		eventsList.remove(event);
 	}
 
 	public String getBlazColoc() {
@@ -134,8 +161,13 @@ public class Coloc {
 	public Set<ShoppingList> getShoppingLists() {
 		return shoppingLists;
 	}
-	
-	
-	
+
+	public List<Event> getEventsList() {
+		return eventsList;
+	}
+
+	public void setEventsList(List<Event> eventsList) {
+		this.eventsList = eventsList;
+	}
 	
 }
