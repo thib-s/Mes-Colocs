@@ -199,7 +199,6 @@ public class Facade {
 		Date begin = null;
 		Date day = null;
 		Date end = null;
-		Event event = null;
 		try {
 			day = sdfDay.parse(inputDate);
 			begin = sdfTime.parse(beginDateString);
@@ -213,14 +212,20 @@ public class Facade {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
-			event = new Event(description, day, begin, end);
-		} else {
-			event = new Event(description, day, begin);
 		}
 		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
 		c.removeEvent(description, day, begin, end);
 	}
 
+	public void addTask(String date, String doer, String description, Coloc coloc) {
+		User user = em.find(User.class, doer);
+		Task task = new Task(user, date, description);
+		em.persist(task);
+		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
+		task.setColoc(c);
+	}
+
+	
 	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {
 
 	}

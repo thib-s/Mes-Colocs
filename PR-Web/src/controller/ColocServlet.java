@@ -49,11 +49,25 @@ public class ColocServlet extends HttpServlet{
 				RequestDispatcher rd=request.getRequestDispatcher("shopColoc.jsp");
 				rd.forward(request, response);
 			}
+			if(op.equals("addTask")){
+				Coloc coloc = user.getMyColoc();
+				String date = request.getParameter("txtDate");
+				String doer = request.getParameter("txtDoer");
+				String desc = request.getParameter("txtDesc");
+				facade.addTask(date, doer, desc, coloc);
+				HashMap<String, List<Task>> tasksMap = (HashMap<String, List<Task>>)coloc.getTasks();
+				request.setAttribute("tasksMap", tasksMap);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("tasksColoc.jsp");
+				rd.forward(request, response);
+			}
 			if(op.equals("task")){
-				String nature=request.getParameter("txtNature");
-				String name=request.getParameter("txtName");
-				String deadline=request.getParameter("txtDeadline");
-				String cancel=request.getParameter("txtCancel");
+				Coloc coloc = user.getMyColoc();
+				HashMap<String, List<Task>> tasksMap = (HashMap<String, List<Task>>)coloc.getTasks();
+				request.setAttribute("tasksMap", tasksMap);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("tasksColoc.jsp");
+				rd.forward(request, response);
 			}
 			if(op.equals("Exp")){
 				// MAnque des choses

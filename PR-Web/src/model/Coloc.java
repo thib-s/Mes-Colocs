@@ -3,6 +3,7 @@
  */
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,11 +18,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 
 
 @Entity
-public class Coloc {
+public class Coloc implements Serializable {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,21 +37,21 @@ public class Coloc {
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
 	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Event> eventsList;/** various events associated with the coloc */
+	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
+	private List<Task> tasksList;/** tasks to do weekly */
 	
 	public Coloc(){
 		this.blazColoc = "";
 		this.members = new HashSet<User>();
 		this.shoppingLists = new HashSet<ShoppingList>();
 	}
-	
+
 	public Coloc(String blazColoc) {
 		super();
 		this.blazColoc = blazColoc;
 		this.members = new HashSet<User>();
 		this.shoppingLists = new HashSet<ShoppingList>();
 	}
-	
-	
 	
 	public Map<Date, List<Event>> getEvents() {
 		Map<Date, List<Event>> map = new HashMap<Date, List<Event>>();
@@ -66,6 +66,34 @@ public class Coloc {
 			}
 		}
 		return map;
+	}
+	
+	public Map<String, List<Task>> getTasks() {
+		Map<String, List<Task>> map = new HashMap<String, List<Task>>();
+		for (Task t : tasksList) {
+			String day = t.getDoBefore();
+			if (map.containsKey(day)) {
+				map.get(day).add(t);
+			} else {
+				List<Task> list = new ArrayList<Task>();
+				list.add(t);
+				map.put(day, list);
+			}
+		}
+		return map;
+	}
+	
+
+	public List<Task> getTasksList() {
+		return tasksList;
+	}
+
+	public void setTasksList(List<Task> tasksList) {
+		this.tasksList = tasksList;
+	}
+	
+	public void addTask(Task task) {
+		this.tasksList.add(task);
 	}
 
 	/**

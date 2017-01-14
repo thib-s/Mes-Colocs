@@ -66,4 +66,27 @@ public class Utils {
 		return res;
 	}
 	
+	public static String formatDay(String input) {
+		String res;
+		switch(input.toLowerCase().substring(0, 3)) {
+			case "mon":
+				res = "Monday";
+			case "tue":
+				res = "Tuesday";
+			case "wed":
+				res = "Wednesday";
+			case "thu":
+				res = "Thursday";
+			case "fri":
+				res = "Friday";
+			case "sat":
+				res = "Saturday";
+			case "sun":
+				res = "Sunday";
+			default:
+				res = "Unknown";
+		}
+		return res;	
+	}
+	
 }

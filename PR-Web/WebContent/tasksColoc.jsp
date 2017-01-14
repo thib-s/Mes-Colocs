@@ -1,3 +1,4 @@
+<%@ page import = "java.util.*, model.*" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +58,7 @@
       <ul class="nav nav-pills nav-stacked">
         <li ><a href="http://localhost:8080/PR-Web/homeColoc.jsp">Home</a></li>
         <li ><a href="http://localhost:8080/PR-Web/shopColoc.jsp">Shopping List</a></li>
-        <li class="active"><a href="http://localhost:8080/PR-Web/tasksColoc.jsp">Tasks</a></li>
+        <li class="active"><a href="ColocServlet?ok=task">Tasks</a></li>
         <li ><a href="http://localhost:8080/PR-Web/expensesColoc.jsp">Expenses</a></li>
         <li><a href="ColocServlet?ok=Agen">Agenda</a></li>
         <li ><a href="http://localhost:8080/PR-Web/nearbyColocs.jsp">Nearby Colocs</a></li>
@@ -70,6 +71,158 @@
     <div class="col-sm-9" style="padding:15px; margin-left:20px">
       <h4><small>Tasks of your colocs</small></h4>
      
+      <form action="ColocServlet" method="post">
+
+			<div class="form-group">
+				<label for="exampleInputDate">Day to do the task before :</label>
+				<input type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDate" id="txtDate"
+					placeholder="Enter the day (e.g. Mon or Monday)" required="required">
+
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputDescription">Doer :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDoer" id="txtDoer"
+					placeholder="Enter the doer of the task" required="required">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputDescription">Description :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDesc" id="txtDesc"
+					placeholder="Enter the task description" required="required">
+			</div>
+			
+			<button type="submit" style="font-size: 1.1em;"
+				class="btn btn-large btn btn-success btn-lg" value="addTask"
+				name="ok">
+				<b>Add a task</b>
+			</button>
+			<br> <br>
+		</form>
+     
+      
+	    <div class="agenda">
+	        <div class="table-responsive">
+	            <table class="table table-condensed table-bordered">
+	                <thead>
+	                    <tr>
+	                        <th>Date</th>
+	                        <th>Doer</th>
+	                        <th>Description</th>
+	                        <th>Done</th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                
+	                	<%	HashMap<String, List<Task>> tasksMap = (HashMap<String, List<Task>>)request.getAttribute("tasksMap"); 	                		
+							for (String dayDate : tasksMap.keySet()) { 
+								List<Task> tasksList = tasksMap.get(dayDate);
+								int size = tasksList.size();
+								if (size == 1) {
+								    Task task = tasksList.get(0);
+								   
+								%>
+								
+				                    <!-- Single event in a single day -->
+				                    <tr>
+				                        <td class="agenda-date" class="active" rowspan="1">
+				                            <div class="dayofweek"><%=dayDate %></div>
+				                        </td>
+				                        <td class="agenda-time">
+				                            <%=task.getDoer() %>
+				                        </td>
+				                        <td class="agenda-events">
+				                            <div class="agenda-event">
+				                                <%=task.getDescription() %>
+				                            </div>
+				                        </td>
+				                        <td>
+				                        	<% if(task.isDone()) {out.println("Yes");} else {out.println("No");} %>
+				                        </td>
+				                    </tr>
+				                    
+								<%} else if(size > 0) { 
+										int k=0;
+										%>
+								
+									<!-- Multiple events in a single day (note the rowspan) -->
+									<tr>
+				                        <td class="agenda-date" class="active" rowspan=<%=size %>>
+				                            <div class="dayofweek"><%=dayDate %></div>
+				                        </td>
+								<%
+										for (Task task : tasksList) {
+											k++;
+										    
+								    %>
+	                    
+									
+				                        <td class="agenda-time">
+				                            <%=task.getDoer() %>
+				                        </td>
+				                        <td class="agenda-events">
+				                            <div class="agenda-event">
+				                                <%=task.getDescription() %>
+				                            </div>
+				                        </td>
+				                        <td>
+				                        	<% if(task.isDone()) {out.println("Yes");} else {out.println("No");} %>
+				                        </td>
+				                    </tr>
+				                    		<%if (k!=size) { %>
+				                   	<tr>
+				                   			<%} %>
+						                    
+								<%		} 
+								  } %>
+	                    
+	                    <% } %>
+	                </tbody>
+	            </table>
+	        </div>
+	    </div>
+	    
+	    <form action="ColocServlet" method="post">
+
+			<div class="form-group">
+				<label for="exampleInputDate">Day to do the task before :</label>
+				<input type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDate" id="txtDate"
+					placeholder="Enter the day (e.g. Mon or Monday)" required="required">
+
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputDescription">Doer :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDoer" id="txtDoer"
+					placeholder="Enter the doer of the task" required="required">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputDescription">Description :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDesc" id="txtDesc"
+					placeholder="Enter the task description" required="required">
+			</div>
+			
+			<button type="submit" style="font-size: 1.1em;"
+				class="btn btn-large btn btn-success btn-lg" value="rmTask"
+				name="ok">
+				<b>Delete a task</b>
+			</button>
+			<br> <br>
+		</form>
+   
       
    
      

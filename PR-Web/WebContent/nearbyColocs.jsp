@@ -80,7 +80,7 @@ footer {
 					<li><a href="http://localhost:8080/PR-Web/homeColoc.jsp">Home</a></li>
 					<li><a href="http://localhost:8080/PR-Web/shopColoc.jsp">Shopping
 							List</a></li>
-					<li><a href="http://localhost:8080/PR-Web/tasksColoc.jsp">Tasks</a></li>
+					<li><a href="ColocServlet?ok=task">Tasks</a></li>
 					<li><a href="http://localhost:8080/PR-Web/expensesColoc.jsp">Expenses</a></li>
 					<li><a href="ColocServlet?ok=Agen">Agenda</a></li>
 					<li class="active"><a
