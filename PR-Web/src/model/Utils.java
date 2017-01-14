@@ -56,4 +56,14 @@ public class Utils {
 		}
 	}
 	
+	public static String format(int time) {
+		String res = null;
+		if (time >= 0 && time < 10) {
+			res = "0" + time;
+		} else {
+			res = Integer.toString(time);
+		}
+		return res;
+	}
+	
 }

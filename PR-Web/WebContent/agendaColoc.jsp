@@ -162,15 +162,15 @@
 								    String dayWeek = Utils.intToDay(cal.get(Calendar.DAY_OF_WEEK));
 								    Event event = eventsList.get(0);
 								    cal.setTime(event.getBeginTime());
-								    int beginTimeH = cal.get(Calendar.HOUR_OF_DAY);
-								    int beginTimeM = cal.get(Calendar.MINUTE);
+								    String beginTimeHS = Utils.format(cal.get(Calendar.HOUR_OF_DAY));
+								    String beginTimeMS = Utils.format(cal.get(Calendar.MINUTE));
 								    Date endTime = event.getEndTime();
-								    int endTimeH = 0;
-								    int endTimeM = 0;
+								    String endTimeH = null;
+								    String endTimeM = null;
 								    if (endTime != null) {
 								    	cal.setTime(endTime);
-								    	endTimeH = cal.get(Calendar.HOUR_OF_DAY);
-									    endTimeM = cal.get(Calendar.MINUTE);
+										endTimeH = Utils.format(cal.get(Calendar.HOUR_OF_DAY));
+									    endTimeM = Utils.format(cal.get(Calendar.MINUTE));
 								    }
 								%>
 								
@@ -182,7 +182,7 @@
 				                            <div class="shortdate text-muted"><%=month %>, <%=year %></div>
 				                        </td>
 				                        <td class="agenda-time">
-				                            <%=beginTimeH %>:<%=beginTimeM %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
+				                            <%=beginTimeHS %>:<%=beginTimeMS %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
 				                        </td>
 				                        <td class="agenda-events">
 				                            <div class="agenda-event">
@@ -212,20 +212,21 @@
 											k++;
 										    cal.setTime(event.getBeginTime());
 										    int beginTimeH = cal.get(Calendar.HOUR_OF_DAY);
-										    int beginTimeM = cal.get(Calendar.MINUTE);
+										    String beginTimeHS = Utils.format(cal.get(Calendar.HOUR_OF_DAY));
+										    String beginTimeMS = Utils.format(cal.get(Calendar.MINUTE));
 										    Date endTime = event.getEndTime();
-										    int endTimeH = 0;
-										    int endTimeM = 0;
+										    String endTimeH = null;
+										    String endTimeM = null;
 										    if (endTime != null) {
 										    	cal.setTime(endTime);
-										    	endTimeH = cal.get(Calendar.HOUR_OF_DAY);
-											    endTimeM = cal.get(Calendar.MINUTE);
+												endTimeH = Utils.format(cal.get(Calendar.HOUR_OF_DAY));
+											    endTimeM = Utils.format(cal.get(Calendar.MINUTE));
 										    }
 								    %>
 	                    
 									
 				                        <td class="agenda-time">
-				                            <%=beginTimeH %>:<%=beginTimeM %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
+				                            <%=beginTimeHS %>:<%=beginTimeMS %> <% if(endTime != null) {out.println("- " + endTimeH + ":" + endTimeM);} %>
 				                        </td>
 				                        <td class="agenda-events">
 				                            <div class="agenda-event">
@@ -245,6 +246,41 @@
 	            </table>
 	        </div>
 	    </div>
+	    
+	    <form action="ColocServlet" method="post">
+
+			<div class="form-group">
+				<label for="exampleInputDate">Date (dd/mm/yyyy) :</label>
+				<input type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDate" id="txtDate"
+					placeholder="Enter the date like this dd/mm/yyyy" required="required">
+
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputTime">Time (hh:mm[-hh:mm]) :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtTime" id="txtTime"
+					placeholder="Enter the time. The second time (end of event) is optional" required="required">
+			</div> 
+			<div class="form-group">
+				<label for="exampleInputTime">Description :</label>
+				<input
+					type="text"
+					style="margin: auto; box-sizing: border-box;"
+					class="form-control" name="txtDesc" id="txtDesc"
+					placeholder="Enter the event description" required="required">
+			</div>
+			
+			<button type="submit" style="font-size: 1.1em;"
+				class="btn btn-large btn btn-success btn-lg" value="rmEvent"
+				name="ok">
+				<b>Delete an event</b>
+			</button>
+			<br> <br>
+		</form>
    
      
       

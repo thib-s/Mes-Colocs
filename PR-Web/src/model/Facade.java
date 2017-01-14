@@ -165,7 +165,7 @@ public class Facade {
 	public void addEvent(String inputDate, String inputTime, String description, Coloc coloc) {
 		SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy"); 
 		SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
-		String beginDateString = inputTime.substring(0,4);
+		String beginDateString = inputTime.substring(0,5);
 		Date begin = null;
 		Date day = null;
 		Event event = null;
@@ -176,7 +176,7 @@ public class Facade {
 			e.printStackTrace();
 		}
 		if (inputTime.length() > 5) {
-			String endDateString = inputTime.substring(6,10);
+			String endDateString = inputTime.substring(6,11);
 			Date end = null;
 			try {
 				end = sdfTime.parse(endDateString);
@@ -190,6 +190,35 @@ public class Facade {
 		em.persist(event);
 		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
 		event.setColoc(c);
+	}
+	
+	public void removeEvent(String inputDate, String inputTime, String description, Coloc coloc) {
+		SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy"); 
+		SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
+		String beginDateString = inputTime.substring(0,5);
+		Date begin = null;
+		Date day = null;
+		Date end = null;
+		Event event = null;
+		try {
+			day = sdfDay.parse(inputDate);
+			begin = sdfTime.parse(beginDateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		if (inputTime.length() > 5) {
+			String endDateString = inputTime.substring(6,11);
+			try {
+				end = sdfTime.parse(endDateString);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			event = new Event(description, day, begin, end);
+		} else {
+			event = new Event(description, day, begin);
+		}
+		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
+		c.removeEvent(description, day, begin, end);
 	}
 
 	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {

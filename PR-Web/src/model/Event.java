@@ -92,5 +92,20 @@ public class Event {
 	public void setDay(Date day) {
 		this.day = day;
 	}
-
+	
+	public static void main(String[] args) {
+		SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
+		Date d = null;
+		try {
+			d = sdfTime.parse("9:35");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(d);
+	    int min = cal.get(Calendar.MINUTE);
+	    System.out.println(min);
+	    System.out.println((new String("01:34")).substring(0,5));
+	}
 }

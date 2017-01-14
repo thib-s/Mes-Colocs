@@ -71,6 +71,18 @@ public class ColocServlet extends HttpServlet{
 				RequestDispatcher rd=request.getRequestDispatcher("agendaColoc.jsp");
 				rd.forward(request, response);
 			}
+			if(op.equals("rmEvent")){
+				Coloc coloc = user.getMyColoc();
+				String date = request.getParameter("txtDate");
+				String time = request.getParameter("txtTime");
+				String desc = request.getParameter("txtDesc");
+				facade.removeEvent(date, time, desc, coloc);
+				HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)coloc.getEvents();
+				request.setAttribute("eventsMap", eventsMap);
+				request.setAttribute("sessionUser", user);
+				RequestDispatcher rd=request.getRequestDispatcher("agendaColoc.jsp");
+				rd.forward(request, response);
+			}
 			if (op.equals("Agen")) {
 				Coloc coloc = user.getMyColoc();
 				HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)coloc.getEvents();

@@ -35,7 +35,7 @@ public class Coloc {
 	private Set<User> members;/** the users associated to a coloc */
 	@OneToMany(targetEntity=model.ShoppingList.class, fetch=javax.persistence.FetchType.EAGER)
 	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
-	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Event> eventsList;/** various events associated with the coloc */
 	
 	public Coloc(){
@@ -109,8 +109,12 @@ public class Coloc {
 	 * @param event
 	 * @return the result of the operation
 	 */
-	public void removeEvent(Event event){
-		eventsList.remove(event);
+	public void removeEvent(String description, Date day, Date beginTime, Date endTime){
+		for (Event e : eventsList) {
+			if (e.getDescription() == description && e.getDay() == day && e.getBeginTime() == beginTime && e.getEndTime() == endTime) {
+				eventsList.remove(e);
+			}
+		}
 	}
 
 	public String getBlazColoc() {
