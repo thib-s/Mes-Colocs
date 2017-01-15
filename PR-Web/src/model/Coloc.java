@@ -33,8 +33,9 @@ public class Coloc implements Serializable {
 	private String countryColoc; /** county of the coloc**/
 	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
-	@OneToMany(targetEntity=model.ShoppingList.class, fetch=javax.persistence.FetchType.EAGER)
-	private Set<ShoppingList> shoppingLists;/** the various shopping lists associated to the coloc*/
+	private ShoppingList shoppingList;/** the shopping list associated to the coloc*/
+	@OneToMany
+	private Set<Event> events;/** various events assoicated to the coloc */
 	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Event> eventsList;/** various events associated with the coloc */
 	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
@@ -43,14 +44,14 @@ public class Coloc implements Serializable {
 	public Coloc(){
 		this.blazColoc = "";
 		this.members = new HashSet<User>();
-		this.shoppingLists = new HashSet<ShoppingList>();
+		this.shoppingList = new ShoppingList();
 	}
 
 	public Coloc(String blazColoc) {
 		super();
 		this.blazColoc = blazColoc;
 		this.members = new HashSet<User>();
-		this.shoppingLists = new HashSet<ShoppingList>();
+		this.shoppingList = new ShoppingList();
 	}
 	
 	public Map<Date, List<Event>> getEvents() {
@@ -113,16 +114,7 @@ public class Coloc implements Serializable {
 	public boolean removeMember(User user){
 		return this.members.remove(user);
 	}
-	
-	/**
-	 * adds a new shopping list to the coloc 
-	 * @param list: the list to add
-	 * @return the result of the operation
-	 */
-	public boolean addShoppingList(ShoppingList list){
-		return this.shoppingLists.add(list);
-	}
-	
+
 	/**
 	 * adds an event to the coloc
 	 * @param event
@@ -190,8 +182,8 @@ public class Coloc implements Serializable {
 		return id_coloc;
 	}
 
-	public Set<ShoppingList> getShoppingLists() {
-		return shoppingLists;
+	public ShoppingList getShoppingList() {
+		return shoppingList;
 	}
 
 	public List<Event> getEventsList() {

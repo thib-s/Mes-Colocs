@@ -61,6 +61,10 @@ public class ShoppingItem {
 		return quantity;
 	}
 
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
 	public Date getLastBuyDate() {
 		return lastBuyDate;
 	}

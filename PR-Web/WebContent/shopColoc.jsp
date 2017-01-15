@@ -104,8 +104,7 @@
 				} else {
 				String name = user.getUsername();
 				Coloc coloc = user.getMyColoc();
-				Set<ShoppingList> lists = coloc.getShoppingLists();
-				for (ShoppingList list : lists){
+				ShoppingList list = coloc.getShoppingList();
 					for (ShoppingItem it: list.getItems()){
 			%>
                     
@@ -129,10 +128,10 @@
                             <div class="pull-right action-buttons">
                                 <a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span></a>
                                 <a href="http://www.jquery2dotnet.com" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                                <button type="submit" class="buy" value="addItem" name="buy"></button><span class="glyphicon glyphicon-flag"></span></button>
+                                <button type="submit" class="buy" value="buyShoppingItem" name="buy"></button><span class="glyphicon glyphicon-flag"></span></button>
                             </div>
                         </li>
-            <%}}}%>
+            <%}}%>
                     
                     </ul>
                 </div>
@@ -172,7 +171,7 @@
             	placeholder="Enter the item's quantity" required="required"> 
       	</div> <br>
       	
-      		<button type="submit" style="margin: auto; width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="addItem" name="ok" ><b>Add</b></button>
+      		<button type="submit" style="margin: auto; width: 100%; font-size:1.1em;" class="btn btn-large btn btn-success btn-lg btn-block" value="addShoppingItem" name="ok" ><b>Add</b></button>
      	</form>
       
    

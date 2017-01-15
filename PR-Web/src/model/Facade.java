@@ -226,8 +226,13 @@ public class Facade {
 	}
 
 	
-	public void addItemToShoppingList(Coloc coloc,String item,int quantity) {
-
+	public void addItemToShoppingList(Coloc coloc,String itemName,int quantity) {
+		ShoppingItem item = new ShoppingItem();
+		item.setItemName(itemName);
+		item.setQuantity(quantity);
+		coloc.getShoppingList().addItem(item);
+		em.persist(coloc);
+		em.persist(item);
 	}
 
 	public static void main(String[] args){

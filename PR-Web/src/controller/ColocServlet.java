@@ -39,7 +39,7 @@ public class ColocServlet extends HttpServlet{
 				session.invalidate();
 				response.sendRedirect("login.jsp");
 			}
-			if(op.equals("addItem")){
+			if(op.equals("addShoppingItem")){
 				Coloc coloc = facade.getColoc(user.getMyColoc().getBlazColoc());
 				String item =request.getParameter("txtItem");
 				String txtQuantity=request.getParameter("txtQuantity");
