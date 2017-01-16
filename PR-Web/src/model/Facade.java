@@ -227,11 +227,12 @@ public class Facade {
 
 	
 	public void addItemToShoppingList(Coloc coloc,String itemName,int quantity) {
+		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
 		ShoppingItem item = new ShoppingItem();
 		item.setItemName(itemName);
 		item.setQuantity(quantity);
-		coloc.getShoppingList().addItem(item);
-		em.persist(coloc);
+		c.getShoppingList().addItem(item);
+		coloc = c;
 		em.persist(item);
 	}
 
