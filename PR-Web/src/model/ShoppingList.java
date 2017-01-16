@@ -15,7 +15,7 @@ public class ShoppingList {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;/** the id of the list (automatically generated*/
 	private String name;/**the name of the list */
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<ShoppingItem> items;/** the item list */
 	
 	public ShoppingList(){

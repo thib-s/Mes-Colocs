@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -33,6 +34,7 @@ public class Coloc implements Serializable {
 	private String countryColoc; /** county of the coloc**/
 	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
+	@OneToOne(fetch=FetchType.EAGER)
 	private ShoppingList shoppingList;/** the shopping list associated to the coloc*/
 	@OneToMany
 	private Set<Event> events;/** various events assoicated to the coloc */

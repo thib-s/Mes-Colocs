@@ -45,6 +45,7 @@ public class ColocServlet extends HttpServlet{
 				String txtQuantity=request.getParameter("txtQuantity");
 				int quantity = Integer.parseInt(txtQuantity);
 				facade.addItemToShoppingList(coloc,item,quantity);
+				user = facade.getUser(user.getUsername());
 				request.setAttribute("sessionUser", user);
 				RequestDispatcher rd=request.getRequestDispatcher("shopColoc.jsp");
 				rd.forward(request, response);
