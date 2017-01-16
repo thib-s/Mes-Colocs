@@ -149,7 +149,7 @@
 	                </thead>
 	                <tbody>
 	                
-	                	<%	HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)request.getAttribute("eventsMap"); 	                		
+	                	<%	HashMap<Date, List<Event>> eventsMap = (HashMap<Date, List<Event>>)request.getAttribute("eventsMap"); 
 							for (Date dayDate : eventsMap.keySet()) { 
 								List<Event> eventsList = eventsMap.get(dayDate);
 								int size = eventsList.size();
@@ -238,10 +238,11 @@
 				                   	<tr>
 				                   			<%} %>
 						                    
-								<%		} 
+								<%		
 								  } %>
 	                    
-	                    <% } %>
+	                    <% } 
+	                    }%>
 	                </tbody>
 	            </table>
 	        </div>

@@ -33,11 +33,25 @@ public class ColocServlet extends HttpServlet{
 		String op = request.getParameter("ok");
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("sessionUser");
-		user = facade.getUser(user.getUsername());
-		if((user != null)&&(op != null)) {
+		if(user != null) {
 			if(op.equals("logOut")){
 				session.invalidate();
 				response.sendRedirect("login.jsp");
+			}
+			if(op.equals("addItem")){
+				Coloc coloc = facade.getColoc(user.getMyColoc().getBlazColoc());
+				String item =request.getParameter("txtItem");
+				String txtQuantity=request.getParameter("txtQuantity");
+				int quantity = Integer.parseInt(txtQuantity);
+
+				facade.addItemToShoppingList(coloc,item,quantity);
+
+			}
+			if(op.equals("task")){
+				String nature=request.getParameter("txtNature");
+				String name=request.getParameter("txtName");
+				String deadline=request.getParameter("txtDeadline");
+				String cancel=request.getParameter("txtCancel");
 			}
 			if(op.equals("addShoppingItem")){
 				Coloc coloc = facade.getColoc(user.getMyColoc().getBlazColoc());
@@ -45,6 +59,7 @@ public class ColocServlet extends HttpServlet{
 				String txtQuantity=request.getParameter("txtQuantity");
 				int quantity = Integer.parseInt(txtQuantity);
 				facade.addItemToShoppingList(coloc,item,quantity);
+				user = facade.getUser(user.getUsername());
 				request.setAttribute("sessionUser", user);
 				RequestDispatcher rd=request.getRequestDispatcher("shopColoc.jsp");
 				rd.forward(request, response);

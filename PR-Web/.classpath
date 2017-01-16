@@ -18,5 +18,6 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/home/titou/Downloads/commons-fileupload-1.3.2-bin/lib/commons-fileupload-1.3.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

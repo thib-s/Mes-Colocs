@@ -36,7 +36,7 @@ public class ApiMaps {
 			float dist = Float.parseFloat(distance);
 			s.close();
 			return dist;
-		} catch ( IOException | JSONException e) {
+		} catch ( IOException e) {
 			e.printStackTrace();
 		}
 		return -1;
@@ -63,7 +63,7 @@ public class ApiMaps {
 		Location location2 = new Location((Double) loc2.get("lng"), (Double) loc2.get("lat"));
 		
 		return new Tuple<Location, Location>(location1, location2);
-		} catch ( IOException | JSONException e) {
+		} catch ( IOException e) {
 			e.printStackTrace();
 		}
 		return new Tuple<Location, Location>(new Location(-1.0, -1.0),new Location(-1.0, -1.0));

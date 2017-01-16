@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,13 +11,16 @@ import java.util.List;
 import javax.ejb.Singleton;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import apiGoogle.*;
+
+import apiGoogle.Location;
 
 @Singleton
 public class Facade {
 	
 	@PersistenceContext
 	EntityManager em;
+	
+	private static String PATH="/home/titou/softs/jboss/standalone/deployments/PicsMesColocs/";
 
 	public void addUser(String username, String firstname, String lastName, String password, String email) {
 		User user = new User();
@@ -148,8 +152,17 @@ public class Facade {
 		coloc.setCountryColoc(country);
 		coloc.setPasswordColoc(password);
 		coloc.addMember(user);
+		createPicsDirectoryColoc(name);
+		ShoppingList shop = coloc.getShoppingList();
+		em.persist(shop);
 		em.persist(coloc);
+		
 		return coloc;
+	}
+	
+	private void createPicsDirectoryColoc(String nameDir) {
+		File directory = new File(PATH + nameDir);
+		boolean test = directory.mkdir();
 	}
 
 	public boolean colocExists(String colocname, String password) {
@@ -161,7 +174,14 @@ public class Facade {
 		}
 		return false;
 	}
-	
+
+
+	public void addPic(User user) {
+		String picName = null;
+		Coloc coloc = em.find(Coloc.class, user.getMyColoc().getId_coloc());
+		coloc.addPic();
+	}
+
 	public void addEvent(String inputDate, String inputTime, String description, Coloc coloc) {
 		SimpleDateFormat sdfDay = new SimpleDateFormat("dd/MM/yyyy"); 
 		SimpleDateFormat sdfTime = new SimpleDateFormat("hh:mm");
@@ -187,9 +207,10 @@ public class Facade {
 		} else {
 			event = new Event(description, day, begin);
 		}
-		em.persist(event);
 		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
 		event.setColoc(c);
+		em.persist(event);
+		
 	}
 	
 	public void removeEvent(String inputDate, String inputTime, String description, Coloc coloc) {
@@ -227,16 +248,13 @@ public class Facade {
 
 	
 	public void addItemToShoppingList(Coloc coloc,String itemName,int quantity) {
+		Coloc c = em.find(Coloc.class, coloc.getId_coloc());
 		ShoppingItem item = new ShoppingItem();
 		item.setItemName(itemName);
 		item.setQuantity(quantity);
+		c.getShoppingList().addItem(item);
 		coloc.getShoppingList().addItem(item);
-		em.persist(coloc);
 		em.persist(item);
 	}
-
-	public static void main(String[] args){
-		
-	}
-
+	
 }

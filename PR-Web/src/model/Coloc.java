@@ -18,6 +18,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 
 @Entity
@@ -31,8 +32,10 @@ public class Coloc implements Serializable {
 	private String addressColoc; /** adress of the coloc **/
 	private String cityColoc; /** city of the coloc **/
 	private String countryColoc; /** county of the coloc**/
+	private int numberOfPics; /** Store the number of pics**/
 	@OneToMany(mappedBy="myColoc")
 	private Set<User> members;/** the users associated to a coloc */
+	@OneToOne (fetch=FetchType.EAGER)
 	private ShoppingList shoppingList;/** the shopping list associated to the coloc*/
 	@OneToMany
 	private Set<Event> events;/** various events assoicated to the coloc */
@@ -45,14 +48,18 @@ public class Coloc implements Serializable {
 		this.blazColoc = "";
 		this.members = new HashSet<User>();
 		this.shoppingList = new ShoppingList();
+		this.numberOfPics = 0;
 	}
-
+	
 	public Coloc(String blazColoc) {
 		super();
 		this.blazColoc = blazColoc;
 		this.members = new HashSet<User>();
 		this.shoppingList = new ShoppingList();
+		this.numberOfPics = 0;
 	}
+	
+	
 	
 	public Map<Date, List<Event>> getEvents() {
 		Map<Date, List<Event>> map = new HashMap<Date, List<Event>>();
@@ -96,7 +103,7 @@ public class Coloc implements Serializable {
 	public void addTask(Task task) {
 		this.tasksList.add(task);
 	}
-
+	
 	/**
 	 * adds a user to the coloc
 	 * @param user: the user to add
@@ -114,7 +121,9 @@ public class Coloc implements Serializable {
 	public boolean removeMember(User user){
 		return this.members.remove(user);
 	}
-
+	
+	
+	
 	/**
 	 * adds an event to the coloc
 	 * @param event
@@ -192,6 +201,14 @@ public class Coloc implements Serializable {
 
 	public void setEventsList(List<Event> eventsList) {
 		this.eventsList = eventsList;
+	}
+	
+	public void addPic() {
+		this.numberOfPics ++;
+	}
+	
+	public int getPics() {
+		return this.numberOfPics;
 	}
 	
 }
