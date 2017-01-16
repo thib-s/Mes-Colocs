@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,31 +23,32 @@ import javax.persistence.OneToOne;
 
 
 @Entity
-public class Coloc implements Serializable {
-	
+public class Coloc  {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id_coloc;/** Id of a coloc (generated automatically)*/
 	private String blazColoc;/** name for a coloc */
 	private String passwordColoc; /** password of the coloc**/
-	private String addressColoc; /** adress of the coloc **/
+	private String addressColoc; /** address of the coloc **/
 	private String cityColoc; /** city of the coloc **/
 	private String countryColoc; /** county of the coloc**/
+	
 	@OneToMany(mappedBy="myColoc")
-	private Set<User> members;/** the users associated to a coloc */
-	@OneToOne(fetch=FetchType.EAGER)
-	private ShoppingList shoppingList;/** the shopping list associated to the coloc*/
-	@OneToMany
-	private Set<Event> events;/** various events assoicated to the coloc */
+	private Set<User> members;/** the users associated to a coloc */	
 	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Event> eventsList;/** various events associated with the coloc */
 	@OneToMany(mappedBy="coloc", fetch=FetchType.EAGER, orphanRemoval=true)
 	private List<Task> tasksList;/** tasks to do weekly */
+	@OneToOne(cascade=CascadeType.ALL)
+	private ShoppingList shoppingList;/** the shopping list associated to the coloc*/
 	
 	public Coloc(){
 		this.blazColoc = "";
 		this.members = new HashSet<User>();
 		this.shoppingList = new ShoppingList();
+		this.eventsList = new ArrayList<Event>();
+		this.tasksList = new ArrayList<Task>();
 	}
 
 	public Coloc(String blazColoc) {
@@ -54,8 +56,10 @@ public class Coloc implements Serializable {
 		this.blazColoc = blazColoc;
 		this.members = new HashSet<User>();
 		this.shoppingList = new ShoppingList();
+		this.tasksList = new ArrayList<Task>();
+		this.eventsList = new ArrayList<Event>();
 	}
-	
+
 	public Map<Date, List<Event>> getEvents() {
 		Map<Date, List<Event>> map = new HashMap<Date, List<Event>>();
 		for (Event e : eventsList) {
@@ -70,7 +74,7 @@ public class Coloc implements Serializable {
 		}
 		return map;
 	}
-	
+
 	public Map<String, List<Task>> getTasks() {
 		Map<String, List<Task>> map = new HashMap<String, List<Task>>();
 		for (Task t : tasksList) {
