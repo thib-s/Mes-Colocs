@@ -44,6 +44,10 @@ public class ShoppingList {
 	public boolean removeItem(ShoppingItem item){
 		return this.items.remove(item);
 	}
+	
+	public void removeItemAtIndex(int index){
+		this.items.remove(index);
+	}
 
 	public String getName() {
 		return name;
