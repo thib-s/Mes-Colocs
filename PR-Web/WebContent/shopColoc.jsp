@@ -112,47 +112,28 @@
                             <div class="checkbox">
                                 <input type="checkbox" id="checkbox" />
                                 <label for="checkbox">
-                                    <%System.out.println(it.getItemName()); %>
+                                    <%= list.getItems().get(i).getItemName() %>
                                 </label>
                             </div>
                             <div>
                             	<label>
-                            	<% System.out.println(it.getQuantity()); %>
+                            	<%= list.getItems().get(i).getQuantity() %>
                             	</label>
                             </div>
                             <div>
                             	<label>
-                            	<% System.out.println(it.getLastBuyDate().toGMTString()); %>
+                            	<%= list.getItems().get(i).getLastBuyDate().toGMTString() %>
                             	</label>
                             </div>
                             <div class="pull-right action-buttons">
                                 <a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span></a>
                                 <a href="http://www.jquery2dotnet.com" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-                                <button type="submit" class="buy" value="buyShoppingItem" name="buy"></button><span class="glyphicon glyphicon-flag"></span></button>
+                                <button type="submit" class="buy" value="buyShoppingItem"  name="ok" ></button><span class="glyphicon glyphicon-flag"></span></button>
                             </div>
                         </li>
             <%}}%>
                     
                     </ul>
-                </div>
-                <div class="panel-footer">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h6>
-                                Total Count <span class="label label-info">25</span></h6>
-                        </div>
-                        <div class="col-md-6">
-                            <ul class="pagination pagination-sm pull-right">
-                                <li class="disabled"><a href="javascript:void(0)">«</a></li>
-                                <li class="active"><a href="javascript:void(0)">1 <span class="sr-only">(current)</span></a></li>
-                                <li><a href="http://www.jquery2dotnet.com">2</a></li>
-                                <li><a href="http://www.jquery2dotnet.com">3</a></li>
-                                <li><a href="http://www.jquery2dotnet.com">4</a></li>
-                                <li><a href="http://www.jquery2dotnet.com">5</a></li>
-                                <li><a href="javascript:void(0)">»</a></li>
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
